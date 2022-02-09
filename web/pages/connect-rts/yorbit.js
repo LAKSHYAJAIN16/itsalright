@@ -43,12 +43,10 @@ export default function ViewerRoom() {
       });
 
       //Pull the tracks from the remote stream
-      pc.ontrack = async(event) => {
-          event.streams[0].getTracks().forEach(track => {
-              remoteStream.addTrack(track);
-              console.log(remoteStream.getTracks());
-              remoteVid.current.srcObject = remoteStream;
-          })
+      pc.ontrack = (event) => {
+        event.streams[0].getTracks().forEach((track) => {
+          remoteStream.addTrack(track);
+        });
       };
 
       //Get Ice Candidates and the SDP
@@ -84,7 +82,6 @@ export default function ViewerRoom() {
         data.iceCandidates.map((ice) => {
           const candidate = new RTCIceCandidate(ice);
           pc.addIceCandidate(candidate);
-          console.log("ice is nice");
         });
 
         remoteVid.current.srcObject = remoteStream;
@@ -102,8 +99,8 @@ export default function ViewerRoom() {
     <>
       <Navbar />
       <div>
-        <video ref={localVid} muted id="local" controls></video>
-        <video ref={remoteVid} autoPlay id="remote" controls></video>
+        <video ref={localVid} muted id="local" autoPlay></video>
+        <video ref={remoteVid} muted id="remote" controls autoPlay></video>
       </div>
     </>
   );

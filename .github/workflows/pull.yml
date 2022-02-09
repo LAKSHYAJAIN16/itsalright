@@ -1,0 +1,11 @@
+name: Main Pull Action
+on: [pull]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Action automatically triggered by a ${{ github.event_name }} event."
+      - name: Repo
+        uses: actions/checkout@v2
+      - run: echo "In Development Phase, no Tests yet"
+      - run: echo "Status is ${{ job.status }}."
