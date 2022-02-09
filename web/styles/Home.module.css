@@ -1,0 +1,171 @@
+.main {
+  background-color: var(--secondary);
+  background-image: var(--gradient);
+  color: var(--primary);
+  min-height: 150vh;
+  width: 100%;
+  padding: 0px;
+}
+
+.mainHeadBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.head {
+  font-weight: 200;
+  font-size: 60px;
+  font-family: var(--mainfont);
+  overflow: hidden;
+  white-space: nowrap; /* Keeps the content on a single line */
+  border-right: 0.1em solid lightblue; /* The typwriter cursor */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+
+  animation: typing 7s steps(40, end) infinite,
+    blink-caret 0.75s step-end infinite;
+}
+
+.subhead {
+  font-family: var(--mainfont);
+}
+
+.itsalrightspan {
+  font-family: var(--logofont) !important;
+  font-size: 1em !important;
+}
+
+.signupbutton {
+  margin-top: 20px;
+  height: 50px;
+  width: 200px;
+  border-radius: 25px;
+  background: #acb6e5;
+  background: -webkit-linear-gradient(to right, #86fde8, #acb6e5);
+  background: linear-gradient(to right, #86fde8, #acb6e5);
+  border: 1px solid transparent;
+  outline: none;
+  color: black;
+  font-weight: 300;
+  font-size: 1.2em;
+  font-family: var(--mainfont);
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.signupbutton:hover {
+  border: 1px solid black;
+  font-size: 1.25em;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 100px;
+  margin-left: 200px;
+  font-family: var(--mainfont);
+}
+
+.cardHeading {
+  font-size: 3em;
+  font-weight: 300;
+  opacity: 0;
+  animation: cardHeadingIn 1s 0.3s ease forwards;
+}
+
+.cardDescription {
+  font-size: 1em;
+  font-weight: 300;
+  opacity: 0;
+  line-height: 130%;
+  font-family: var(--mainfont);
+  animation: cardHeadingIn 1s 0.7s ease forwards;
+}
+
+.cardImage {
+  margin-left: 100px;
+  width: 400px;
+  height: 300px;
+  opacity: 0;
+  animation: cardHeadingIn 1s 1.5s ease forwards;
+}
+
+.testimonialHeader {
+  margin-top: 70px;
+  text-align: center;
+  font-family: var(--mainfont);
+  font-size: 2.5em;
+}
+
+.testimonialRow {
+  display: flex;
+  justify-content: center;
+}
+
+.testimonial {
+  margin-left: 100px;
+}
+
+.testimonialContent {
+  background-color: rgb(197, 224, 233);
+  font-family: var(--mainfont);
+  font-weight: 300;
+  width: 300px;
+  padding: 20px 30px 20px 30px;
+  border-radius: 30px;
+}
+
+.testimonialPreHead{
+  margin-top: 14px;
+  display: flex;
+}
+
+.testimonialName {
+  padding-left: 10px;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.testimonialSubName {
+  padding-left: 10px;
+  font-style: italic;
+}
+
+.testimonialImage {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 63%;
+  }
+  100% {
+    width: 63%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: lightblue;
+  }
+}
+
+@keyframes cardHeadingIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Kings&display=swap');
+
+html,
+body {
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  padding: 0px;
+
+  /* Variables */
+  --primary: black;
+  --secondary: #b8c6db;
+  --logofont: "Caveat", cursive;
+  --mainfont: "Inter", sans-serif;
+  --royalfont : 'Kings', cursive;
+  --gradient: linear-gradient(315deg, #b3c0d3 0%, #f5f7fa 74%);
+  --color3 : rgb(255, 255, 255);  
+  --color4 : #d1faf7;
+  --royalcolor : purple;
+  --gold : #daa520;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding-top: 0px;
+  margin: 0px;
+}
+
+a {
+  text-decoration: none;
+}
+
+textarea {
+  resize: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.bg {
+  background-color: var(--secondary);
+  background-image: var(--gradient);
+  max-width: 100vw;
+}
+
+.noselect {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -khtml-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+.remove-after::after {
+  display: none !important;
+}
+
+
+.standardButton {
+  width: 100px;
+  height: 45px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--mainfont);
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  background-image: linear-gradient(
+    to right,
+    #25aae1,
+    #4481eb,
+    #04befe,
+    #3f86ed
+  );
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.standardButton:hover {
+  background-position: 100% 0;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.standardButton:focus {
+  outline: none;
+}
