@@ -1,4 +1,4 @@
-import IATest from "../framework";
+import IATest from "../framework/framework";
 
 export default class UITest extends IATest {
     constructor(){

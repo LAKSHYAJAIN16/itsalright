@@ -1,6 +1,7 @@
 {
     "scripts": {
         "web" : "cd web && npm run dev",
+        "server" : "cd server && npm start",
         "test" : "cd tests && node index.test.js"
     }
 }

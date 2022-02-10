@@ -68,10 +68,10 @@ export default function Room() {
 
       //Create Data object
       const data = {
-        offer,
-        iceCandidates,
+        callSDP: offer,
+        callICE: iceCandidates,
         proxy,
-      }
+      };
 
       await sleep(1000);
       console.log(data);

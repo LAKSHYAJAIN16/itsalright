@@ -1,4 +1,4 @@
-import IATest from "../framework";
+import IATest from "../framework/framework";
 
 export default class MUITest extends IATest {
     constructor(){

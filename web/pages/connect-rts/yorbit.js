@@ -43,8 +43,9 @@ export default function ViewerRoom() {
       });
 
       //Pull the tracks from the remote stream
-      pc.ontrack = (event) => {
-        event.streams[0].getTracks().forEach((track) => {
+      pc.ontrack = event => {
+        console.log("recieve track");
+        event.streams[0].getTracks().forEach(track => {
           remoteStream.addTrack(track);
         });
       };
@@ -52,6 +53,7 @@ export default function ViewerRoom() {
       //Get Ice Candidates and the SDP
       const iceCandidates = [];
       pc.onicecandidate = (event) => {
+        console.log("recieve ice");
         event.candidate && iceCandidates.push(event.candidate);
       };
 
@@ -59,13 +61,31 @@ export default function ViewerRoom() {
       const newSocket = io("http://localhost:1829");
       setSocket(newSocket);
 
-      //Create Data object
-      const data = {
+      //Create Offer for the SDP
+      const offerDescription = await pc.createOffer();
+      await pc.setLocalDescription(offerDescription);
+      const offer = {
+        sdp: offerDescription.sdp,
+        type: offerDescription.type,
+      };
+
+      //Create Data object for Join
+      const answerData = {
         id: proxy,
       };
 
+      //Create Data object for Answer
+      const joinData = {
+        answerSDP: offer,
+        answerICE: iceCandidates,
+        proxy,
+      };
+
+      await sleep(1000);
+      console.log(joinData);
+
       //Join Call
-      newSocket.emit("join", JSON.stringify(data));
+      newSocket.emit("join", JSON.stringify(answerData));
 
       //Joined Call Auth Callback
       newSocket.on("join-call", (buffer) => {
@@ -74,12 +94,12 @@ export default function ViewerRoom() {
         console.log(data);
 
         //Get that SDP
-        const answer = data.offer;
+        const answer = data.callSDP;
         const remoteDescription = new RTCSessionDescription(answer);
         pc.setRemoteDescription(remoteDescription);
 
         //Get the Ice Candidates and loop over and add them
-        data.iceCandidates.map((ice) => {
+        data.callICE.map((ice) => {
           const candidate = new RTCIceCandidate(ice);
           pc.addIceCandidate(candidate);
         });
@@ -95,6 +115,7 @@ export default function ViewerRoom() {
     };
     init();
   }, []);
+
   return (
     <>
       <Navbar />

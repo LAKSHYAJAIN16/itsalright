@@ -1,3 +1,2 @@
-ItsAlright git repo
-
-Last Update : 2.4.2022
+# Web
+The Website you look at when you go to itsalright.in. Made using NextJS.
