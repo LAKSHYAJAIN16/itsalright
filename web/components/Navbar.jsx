@@ -31,7 +31,7 @@ export default function Navbar() {
                     Answer
                   </p>
                 </a>
-                <a href="/beta/connect">
+                <a href="/connect-rts/sta/expert">
                   <p className="navOption" style={{ zoom: 0.93 }}>
                     Connect
                   </p>
@@ -55,7 +55,7 @@ export default function Navbar() {
                 <a href="/share">
                   <p className="navOption">Share</p>
                 </a>
-                <a href="/beta/connect">
+                <a href="/connect-rts/sta/user">
                   <p className="navOption">Connect</p>
                 </a>
                 <a href="/contact">
