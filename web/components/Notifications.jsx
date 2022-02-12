@@ -33,7 +33,7 @@ export default function Notifications() {
           onClose={() => setShow(!show)}
         >
           <Toast.Header>
-            <img
+            {/* <img
               src={`/${data.color}.jpg`}
               alt="image"
               aria-label="image"
@@ -43,7 +43,7 @@ export default function Notifications() {
                 width: "15px",
                 marginRight: "10px",
               }}
-            ></img>
+            ></img> */}
             <strong className="me-auto">
               {"    "} {data.title}
             </strong>
