@@ -7,15 +7,20 @@ import {
   getDoc,
   getDocs,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 
+import styles from "../../../styles/Connect.module.css";
 import { db } from "../../../lib/firebase";
 import genID from "../../../lib/genID";
+import Procrastinator from "../../../components/Procrastinator";
 import Navbar from "../../../components/Navbar";
 
 export default function AnswerRoom() {
   const local = useRef();
   const remote = useRef();
+  const [rC, setRC] = useState(false);
+  const [ui, setUi] = useState(0);
 
   useEffect(() => {
     const act = async () => {
@@ -52,6 +57,45 @@ export default function AnswerRoom() {
         pc.addTrack(track, localStream);
       });
 
+      //Listen to Document Updates
+      const endChange = onSnapshot(
+        doc(db, "calls", proxy),
+        async (document) => {
+          const source = document.metadata.hasPendingWrites
+            ? "Local"
+            : "Server";
+          if (document.exists()) {
+            if (source === "Server") {
+              //Get the Data
+              const data = document.data();
+              if (data.proxy === "ended") {
+                //Redirect to end screen
+                setUi(1);
+
+                //Delete the document instances (or at least try to)
+                await deleteDoc(doc(db, "available-calls", proxy));
+                await deleteDoc(doc(db, "calls", proxy));
+              }
+            }
+          }
+        }
+      );
+
+      //Register Window.beforeunload
+      window.onbeforeunload = async function () {
+        //Update Call so that the proxy is null
+        if (ui === 0) {
+          //Update the Doc so that the proxy is null
+          await updateDoc(doc(db, "calls", proxy), {
+            proxy: "ended",
+          });
+
+          //Delete the document instances (or at least try to)
+          await deleteDoc(doc(db, "available-calls", proxy));
+          await deleteDoc(doc(db, "calls", proxy));
+        }
+      };
+
       //Get the Document according to the proxy
       const rDoc = await getDoc(doc(db, "calls", proxy));
 
@@ -73,6 +117,7 @@ export default function AnswerRoom() {
       //On Track callback, create remote stream
       const remoteStream = new MediaStream();
       pc.ontrack = (event) => {
+        setRC(true);
         event.streams[0].getTracks().forEach((track) => {
           remoteStream.addTrack(track);
           remote.current.srcObject = remoteStream;
@@ -114,13 +159,62 @@ export default function AnswerRoom() {
     act();
   }, []);
 
+  const endCall = async () => {
+    const searchParams = new URL(window.location).searchParams;
+    const proxy = searchParams.get("v");
+
+    //Update the Doc so that the proxy is null
+    await updateDoc(doc(db, "calls", proxy), {
+      proxy: "ended",
+    });
+
+    //Delete the document instances (or at least try to)
+    await deleteDoc(doc(db, "available-calls", proxy));
+    await deleteDoc(doc(db, "calls", proxy));
+
+    setUi(1);
+  };
+
   return (
     <>
       <Navbar />
-      <div className="vids">
-        <video muted ref={local}></video>
-        <video ref={remote}></video>
-      </div>
+      {ui === 0 && (
+        <>
+          <div className={styles.vids}>
+            <div>
+              <video muted ref={local} className={styles.vid}></video>
+              <p style={{ textAlign: "center" }}>You</p>
+            </div>
+            {rC === true && (
+              <div>
+                <video ref={remote} className={styles.vid}></video>
+                <p style={{ textAlign: "center" }}>Expert</p>
+              </div>
+            )}
+          </div>
+          <br />
+          {rC === false && (
+            <>
+              <Procrastinator />
+              <p style={{ textAlign: "center" }}>Waiting for Expert</p>
+            </>
+          )}
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <button
+              className="standardButton"
+              onClick={() => endCall()}
+            >
+              End Call
+            </button>
+          </div>
+        </>
+      )}
+      {ui === 1 && (
+        <>
+          <h1>Video Call Ended bub</h1>
+          <a href="/home">Go to homepage lol</a>
+        </>
+      )}
     </>
   );
 }

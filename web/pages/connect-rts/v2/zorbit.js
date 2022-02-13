@@ -1,13 +1,24 @@
 import React, { useEffect, useState, useRef } from "react";
-import { setDoc, doc, onSnapshot, collection } from "firebase/firestore";
+import {
+  setDoc,
+  doc,
+  onSnapshot,
+  collection,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 
+import styles from "../../../styles/Connect.module.css";
 import { db } from "../../../lib/firebase";
 import genID from "../../../lib/genID";
+import Procrastinator from "../../../components/Procrastinator";
 import Navbar from "../../../components/Navbar";
 
 export default function Room() {
   const local = useRef();
   const remote = useRef();
+  const [rC, setRC] = useState(false);
+  const [ui, setUi] = useState(0);
 
   useEffect(() => {
     const act = async () => {
@@ -45,20 +56,36 @@ export default function Room() {
       });
 
       //Listen to Document Updates
-      const sdpChange = onSnapshot(doc(db, "calls", proxy), (document) => {
-        const source = document.metadata.hasPendingWrites ? "Local" : "Server";
-        if (source === "Server") {
-          //Get the Data
-          const data = document.data();
+      const sdpChange = onSnapshot(
+        doc(db, "calls", proxy),
+        async (document) => {
+          const source = document.metadata.hasPendingWrites
+            ? "Local"
+            : "Server";
+          if (document.exists()) {
+            if (source === "Server") {
+              //Get the Data
+              const data = document.data();
 
-          //Get the Answer SDP
-          const answerSDP = data.answerSDP;
-          const remoteDescription = new RTCSessionDescription(answerSDP);
-          pc.setRemoteDescription(remoteDescription);
+              if (data.proxy === "ended") {
+                //End Call
+                setUi(1);
 
-          console.log("connected via answerSDP");
+                //Delete the document instances (or at least try to)
+                await deleteDoc(doc(db, "available-calls", proxy));
+                await deleteDoc(doc(db, "calls", proxy));
+              } else if (data.proxy !== "ended") {
+                //Get the Answer SDP
+                const answerSDP = data.answerSDP;
+                const remoteDescription = new RTCSessionDescription(answerSDP);
+                pc.setRemoteDescription(remoteDescription);
+
+                console.log("connected via answerSDP");
+              }
+            }
+          }
         }
-      });
+      );
 
       const iceChange = onSnapshot(
         collection(db, "calls", proxy, "answerCandidates"),
@@ -75,6 +102,7 @@ export default function Room() {
       //On Track callback, create remote stream
       const remoteStream = new MediaStream();
       pc.ontrack = (event) => {
+        setRC(true);
         event.streams[0].getTracks().forEach((track) => {
           remoteStream.addTrack(track);
           remote.current.srcObject = remoteStream;
@@ -112,17 +140,79 @@ export default function Room() {
         proxy: proxy,
         callSDP: callSDP,
       });
+
+      //Register Window.beforeunload
+      window.onbeforeunload = async function () {
+        if (ui === 0) {
+          //Update Call so that the proxy is null
+          await updateDoc(doc(db, "calls", proxy), {
+            proxy: "ended",
+          });
+
+          //Delete the document instances (or at least try to)
+          await deleteDoc(doc(db, "available-calls", proxy));
+          await deleteDoc(doc(db, "calls", proxy));
+        }
+      };
     };
     act();
   }, []);
 
+  const endCall = async () => {
+    const proxy = searchParams.get("v");
+
+    //Update the Doc so that the proxy is null
+    await updateDoc(doc(db, "calls", proxy), {
+      proxy: "ended",
+    });
+
+    //Delete the document instances (or at least try to)
+    await deleteDoc(doc(db, "available-calls", proxy));
+    await deleteDoc(doc(db, "calls", proxy));
+
+    setUi(1);
+  };
+
   return (
     <>
       <Navbar />
-      <div className="vids">
-        <video muted ref={local}></video>
-        <video muted ref={remote}></video>
-      </div>
+      {ui === 0 && (
+        <>
+          <div className={styles.vids}>
+            <div>
+              <video muted ref={local} className={styles.vid}></video>
+              <p style={{ textAlign: "center" }}>You</p>
+            </div>
+            {rC === true && (
+              <div>
+                <video ref={remote} className={styles.vid}></video>
+                <p style={{ textAlign: "center" }}>User</p>
+              </div>
+            )}
+          </div>
+          <br />
+          {rC === false && (
+            <>
+              <Procrastinator />
+              <p style={{ textAlign: "center" }}>Waiting for User</p>
+            </>
+          )}
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <button
+              className="standardButton"
+              onClick={() => endCall()}
+            >
+              End Call
+            </button>
+          </div>
+        </>
+      )}
+      {ui === 1 && (
+        <>
+          <h1>Video Call ended bub</h1>
+          <p>lol nerd</p>
+        </>
+      )}
     </>
   );
 }
