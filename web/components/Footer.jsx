@@ -29,7 +29,7 @@ export default function Footer() {
                 <br />
                 and Licensed under the MIT License.
                 <br />
-                Check it out <a href="github.com">here</a>
+                Check it out <a href="https://github.com/LAKSHYAJAIN16/itsalright">here</a>
             </p>
         </div>
       </footer>

@@ -54,8 +54,12 @@ export default function signup() {
         <div className="center">
           <h2 className="signup">Signup</h2>
           <p className="expert-signup">
-            If you are an expert (a doctor, motivational speaker, etc.) can sign
-            up on the <a href="expert-signup">expert signup</a> page
+            If you are an expert (a doctor, motivational speaker, etc.)
+            <br />
+            you can sign up on the <a href="expert-signup">
+              expert signup
+            </a>{" "}
+            page
           </p>
           <hr />
           <form className="form" onSubmit={signup}>
@@ -127,15 +131,9 @@ export default function signup() {
               <i className="bx bxl-facebook facebookIconBI"></i>
               Continue With Facebook
             </button>
-
-            {/* <button
-              type="button"
-              className="googleButtonBI"
-              style={{ marginTop: "10px" }}
-            >
-              <i className="bx bxl-google googleIconBI"></i>
-              Continue With Google
-            </button> */}
+            <p style={{ zoom: 0.9, textAlign: "center" }}>
+              Have an account? <a href="/login">Login</a> here.
+            </p>
             <br />
           </form>
         </div>
@@ -162,6 +160,7 @@ export default function signup() {
 
           .expert-signup {
             font-size: 0.65em;
+            width: 100%;
             text-align: center;
           }
 

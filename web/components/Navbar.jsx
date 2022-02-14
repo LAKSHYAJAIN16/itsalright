@@ -66,7 +66,9 @@ export default function Navbar() {
 
             {logged ? (
               <>
-                <img src={profilePIC} className="profilePic"></img>
+                <a href="/user-settings">
+                  <img src={profilePIC} className="profilePic"></img>
+                </a>
               </>
             ) : (
               <p>Log in clown</p>
