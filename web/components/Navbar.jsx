@@ -71,7 +71,14 @@ export default function Navbar() {
                 </a>
               </>
             ) : (
-              <p>Log in clown</p>
+              <a href="/login">
+                <button
+                  className="standardButton"
+                  style={{ marginLeft: "20px" }}
+                >
+                  Login
+                </button>
+              </a>
             )}
           </div>
           <style jsx>

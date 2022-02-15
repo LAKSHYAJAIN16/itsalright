@@ -6,7 +6,7 @@ import genID from "../../lib/genID";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    res.status(200).send(`Cannot ${req.method} /api/createUser`);
+    res.status(200).send(`Cannot ${req.method} /api/facebookCreateUser`);
   } else {
     //Firestore query
     const id = genID(15);
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
       password : newPassword,
       email : req.body.email,
       profilePic: `https://avatars.dicebear.com/api/adventurer-neutral/${id}.svg`,
-      origin : "def",
+      origin : "fb",
     };
     await setDoc(doc(db, "users", id), newData);
 

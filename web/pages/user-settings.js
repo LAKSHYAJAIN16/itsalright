@@ -14,7 +14,7 @@ export default function UserSettings() {
 
   const logout = () => {
     localStorage.removeItem("user");
-    localStorage.removeItem("loggedin");
+    localStorage.removeItem("logged");
     window.location.replace("/home");
   };
 
@@ -41,6 +41,14 @@ export default function UserSettings() {
             </div>
             <div className="row">
               <b>{d.name}</b>
+            </div>
+
+            <br />
+            <div className="row">
+              <p>Your Email</p>
+            </div>
+            <div className="row">
+              <b>{d.email}</b>
             </div>
 
             <br />

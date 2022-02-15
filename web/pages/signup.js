@@ -1,7 +1,9 @@
 import React from "react";
 import Head from "next/head";
 import axios from "axios";
+import { FacebookAuthProvider, signInWithPopup } from "firebase/auth";
 
+import { fauth } from "../lib/firebase";
 import Navbar from "../components/Navbar";
 
 export default function signup() {
@@ -36,6 +38,26 @@ export default function signup() {
 
     //Redirect to dashboard
     window.location.replace("/dashboard");
+  };
+
+  const facebookSignup = async () => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(fauth, provider)
+      .then((result) => {
+        //The signed-in user info.
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode === "auth/popup-closed-by-user") {
+          return;
+        } else if (errorCode !== "auth/popup-closed-by-user") {
+          alert(errorMessage);
+        }
+      });
   };
 
   return (
@@ -127,12 +149,13 @@ export default function signup() {
               type="button"
               className="facebookButtonBI"
               style={{ marginTop: "10px" }}
+              onClick={() => facebookSignup()}
             >
               <i className="bx bxl-facebook facebookIconBI"></i>
               Continue With Facebook
             </button>
             <p style={{ zoom: 0.9, textAlign: "center" }}>
-              Have an account? <a href="/login">Login</a> here.
+              Have an account? <a href="/login">Login</a>
             </p>
             <br />
           </form>
