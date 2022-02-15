@@ -3,3 +3,5 @@ Feb 12 : Created Changelog, basic workflow for the connect feature, just some ro
 Feb 13 : Connect Feature is basically done lol
 
 Feb 14 : All of the Small features are done, Git repo is clean, final steps and then we can deploy the web version.
+
+Feb 15 : Login Workflow is done, login email is done, facbook auth integration is done : only the forgot password this is left. PEACE! Nice progress today comparitively speaking.

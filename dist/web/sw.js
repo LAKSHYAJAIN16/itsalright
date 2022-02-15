@@ -1,0 +1,2 @@
+// SERVICE WORKER
+// CACHE-1

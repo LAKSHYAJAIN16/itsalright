@@ -1,4 +1,0 @@
-DEVELOPMENT ENVIRONMENT = STATIC
-CACHE = STATIC
-
-// Hey. This is a file used statically inside itsalright for caching reasons. If you want dynamic cache, change it to dynamic
