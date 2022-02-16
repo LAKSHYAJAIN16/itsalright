@@ -1,2 +1,0 @@
-# Cache
-Cache files. If you want to run the project on your machine, it will take about 10 hours just to load the dependencies. The cache simplifies that. It already has pre-bundled files, meaning you can go straight to developing.
