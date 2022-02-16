@@ -51,10 +51,35 @@ export default function Login() {
   const facebookLogin = async () => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(fauth, provider)
-      .then((result) => {
+      .then(async (result) => {
         //The signed-in user info.
         const user = result.user;
-        console.log(user);
+
+        //Assemble Data
+        const assembled = {
+          username: user.displayName,
+          email: user.email,
+          password: user.uid,
+          isExpert: false,
+        };
+
+        //API
+        const res = await axios.post("/api/facebook-oauth", assembled);
+
+        //Set LocalStorage
+        const ISSERVER = typeof window === "undefined";
+        if (!ISSERVER) {
+          localStorage.setItem("user", JSON.stringify(res.data.data));
+          sessionStorage.setItem("user", JSON.stringify(res.data.data));
+          localStorage.setItem("logged", JSON.stringify(true));
+          sessionStorage.setItem("logged", JSON.stringify(true));
+        }
+
+        //Send Notification EMAIL
+        await axios.get(`/api/email/signup?m=${assembled.email}`);
+
+        //Redirect to dashboard
+        window.location.replace("/dashboard");
       })
       .catch((error) => {
         // Handle Errors here.
@@ -110,6 +135,13 @@ export default function Login() {
                 Password
               </label>
             </div>
+            <a href="/forgot-password">
+              <p
+                style={{ zoom: 0.8, marginTop: "-25px", marginBottom: "10px" }}
+              >
+                Forgot Your Password?
+              </p>
+            </a>
 
             <button className="standardButton signupButton" type="submit">
               Login

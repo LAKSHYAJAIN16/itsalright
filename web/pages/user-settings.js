@@ -60,14 +60,21 @@ export default function UserSettings() {
             </div>
 
             <br />
+            <div className="row">
+              <a href="/forgot-password">
+                <button className="standardButton" style={{ width: "200px" }}>
+                  Reset Password
+                </button>
+              </a>
+            </div>
+
             <br />
-            <button
-              className="standardButton"
-              style={{ marginLeft: "52vw" }}
-              onClick={() => logout()}
-            >
-              Logout
-            </button>
+            <br />
+            <div className="row">
+              <button className="standardButton" onClick={() => logout()}>
+                Logout
+              </button>
+            </div>
             <br />
             <br />
             <p style={{ textAlign: "center", zoom: 0.6 }}>

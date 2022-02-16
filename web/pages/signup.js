@@ -43,10 +43,35 @@ export default function signup() {
   const facebookSignup = async () => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(fauth, provider)
-      .then((result) => {
+      .then(async(result) => {
         //The signed-in user info.
         const user = result.user;
-        console.log(user);
+
+        //Assemble Data
+        const assembled = {
+          username: user.displayName,
+          email: user.email,
+          password: user.uid,
+          isExpert: false,
+        };
+
+        //API
+        const res = await axios.post("/api/facebook-oauth", assembled);
+
+        //Set LocalStorage
+        const ISSERVER = typeof window === "undefined";
+        if (!ISSERVER) {
+          localStorage.setItem("user", JSON.stringify(res.data.data));
+          sessionStorage.setItem("user", JSON.stringify(res.data.data));
+          localStorage.setItem("logged", JSON.stringify(true));
+          sessionStorage.setItem("logged", JSON.stringify(true));
+        }
+
+        //Send Notification EMAIL
+        await axios.get(`/api/email/signup?m=${assembled.email}`);
+
+        //Redirect to dashboard
+        window.location.replace("/dashboard");
       })
       .catch((error) => {
         // Handle Errors here.
@@ -154,6 +179,7 @@ export default function signup() {
               <i className="bx bxl-facebook facebookIconBI"></i>
               Continue With Facebook
             </button>
+            
             <p style={{ zoom: 0.9, textAlign: "center" }}>
               Have an account? <a href="/login">Login</a>
             </p>
