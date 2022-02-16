@@ -200,20 +200,24 @@ export default function AnswerRoom() {
             </>
           )}
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <button
-              className="standardButton"
-              onClick={() => endCall()}
-            >
+            <button className="standardButton" onClick={() => endCall()}>
               End Call
             </button>
           </div>
         </>
       )}
       {ui === 1 && (
-        <>
-          <h1>Video Call Ended bub</h1>
-          <a href="/home">Go to homepage lol</a>
-        </>
+        <div className={styles.discMain}>
+          <img src="/ended.gif" className={styles.discImage}></img>
+          <br />
+          <h1>Call Ended</h1>
+          <br />
+          <a href="/home">
+            <button className="standardButton" style={{ width: "200px" }}>
+              Back to Homepage
+            </button>
+          </a>
+        </div>
       )}
     </>
   );

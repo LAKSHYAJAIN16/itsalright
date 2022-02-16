@@ -159,6 +159,7 @@ export default function Room() {
   }, []);
 
   const endCall = async () => {
+    const searchParams = new URL(window.location).searchParams;
     const proxy = searchParams.get("v");
 
     //Update the Doc so that the proxy is null
@@ -198,10 +199,7 @@ export default function Room() {
             </>
           )}
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <button
-              className="standardButton"
-              onClick={() => endCall()}
-            >
+            <button className="standardButton" onClick={() => endCall()}>
               End Call
             </button>
           </div>
@@ -209,8 +207,17 @@ export default function Room() {
       )}
       {ui === 1 && (
         <>
-          <h1>Video Call ended bub</h1>
-          <p>lol nerd</p>
+          <div className={styles.discMain}>
+            <img src="/ended.gif" className={styles.discImage}></img>
+            <br />
+            <h1>Call Ended</h1>
+            <br />
+            <a href="/home">
+              <button className="standardButton" style={{ width: "200px" }}>
+                Back to Homepage
+              </button>
+            </a>
+          </div>
         </>
       )}
     </>

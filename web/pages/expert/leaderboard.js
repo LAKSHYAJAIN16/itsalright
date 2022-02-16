@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import Procrastinator from "../../components/Procrastinator";
 
@@ -112,6 +113,7 @@ export default function Leaderboard() {
           </div>
         </main>
       </div>
+      <Footer />
 
       <style jsx>
         {`
