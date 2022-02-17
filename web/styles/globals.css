@@ -9,6 +9,7 @@ body {
   margin-right: 0px;
   margin-bottom: 0px;
   padding: 0px;
+  scroll-behavior: smooth;
 
   /* Variables */
   --primary: black;
