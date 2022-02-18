@@ -37,11 +37,26 @@
     }
 
 - Feb 17 :
+
   - Total <297,651>
   - Breakdown {
     "JavaScript": 270977,
     "Java": 8096,
     "CSS": 7757,
+    "Objective-C": 3756,
+    "Ruby": 3254,
+    "Starlark": 1902,
+    "Kotlin": 691,
+    "Swift": 687,
+    "HTML": 531
+    }
+
+- Feb 18 :
+  - Total <304,290>
+  - Breakdown {
+    "JavaScript": 276144,
+    "CSS": 9229,
+    "Java": 8096,
     "Objective-C": 3756,
     "Ruby": 3254,
     "Starlark": 1902,
