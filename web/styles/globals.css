@@ -102,3 +102,75 @@ textarea {
 .standardButton:focus {
   outline: none;
 }
+
+.greenButton {
+  width: 100px;
+  height: 45px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--mainfont);
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  background-image: linear-gradient(
+    to right,
+    #44e125,
+    #4aeb44,
+    #04fe6c,
+    #3fed82
+  );
+  box-shadow: 0 4px 15px 0 rgba(65, 234, 65, 0.75);
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.greenButton:hover {
+  background-position: 100% 0;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.greenButton:focus {
+  outline: none;
+}
+
+.redButton {
+  width: 100px;
+  height: 45px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--mainfont);
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  background-image: linear-gradient(
+    to right,
+    #e12525,
+    #eb5d44,
+    #fe0404,
+    #ed533f
+  );
+  box-shadow: 0 4px 15px 0 rgba(234, 71, 65, 0.75);
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.redButton:hover {
+  background-position: 100% 0;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.redButton:focus {
+  outline: none;
+}

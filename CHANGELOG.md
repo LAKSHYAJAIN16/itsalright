@@ -9,3 +9,5 @@ Feb 15 : Login Workflow is done, login email is done, facbook auth integration i
 Feb 16 : BOIZ! OTPs, Facebook Auth, Reset Password : most of the workflow is done. We're just polishing rough edges now. YES!!!! PEACE OUT.
 
 Feb 17 : Had the MIT thing today, passed it :) Progress is pretty good : user-settings UI is finished. Just now the User Settings Backend is left.
+
+Feb 18 : Not much progress today, but got the Cloudinary thing working and have started the User Settings Change Protocol. I have to study but will probably do another commit later today. PEACE OUT!

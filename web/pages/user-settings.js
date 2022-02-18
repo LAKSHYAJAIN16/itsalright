@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
+import axios from "axios";
 
 import Procrastinator from "../components/Procrastinator";
 import Navbar from "../components/Navbar";
 
 export default function UserSettings() {
+  //UI variables
   const [pass, setPass] = useState(false);
   const [d, setD] = useState({});
   const profile = useRef();
@@ -12,6 +14,10 @@ export default function UserSettings() {
   const auth = useRef();
   const api = useRef();
   const danger = useRef();
+
+  //Edit States
+  const [eName, setEName] = useState(false);
+  const [eEmail, setEEmail] = useState(false);
 
   useEffect(() => {
     setD(JSON.parse(localStorage.getItem("user") || ""));
@@ -26,6 +32,51 @@ export default function UserSettings() {
 
   const scrollT = (ref) => {
     ref.current.scrollIntoView();
+  };
+
+  const edit = async (fieldName, value, hook) => {
+    setPass(false);
+
+    //Send Axios request
+    const res = await axios.post("/api/update-settings", {
+      fieldName,
+      value,
+      id: d.id,
+    });
+    console.log(res);
+
+    //Update Field in D Object
+    const temp_d = d;
+    d[fieldName] = value;
+
+    //Update Cache
+    const user = JSON.parse(localStorage.getItem("user") || "");
+    user[fieldName] = value;
+    localStorage.setItem("user", JSON.stringify(user));
+
+    //Update all states
+    setD(temp_d);
+    hook(false);
+    setPass(true);
+  };
+
+  const updateProfilePic = async (file) => {
+    if (file !== null) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "cdkq7wce");
+
+      setPass(false);
+      const res = await axios.post(
+        "https://api.cloudinary.com/v1_1/everything-limited/auto/upload",
+        formData
+      );
+      setPass(true);
+
+      edit("profilePic", res.data.url, function () {
+        console.log("UPLOADED IMAGE TO CLOUD");
+      });
+    }
   };
 
   return (
@@ -79,8 +130,43 @@ export default function UserSettings() {
                   <p className="categoryHeader">Profile</p>
                   <div className="cat">
                     <p className="catHead">Name</p>
-                    <p className="catTxt">{d.name}</p>
-                    <button className="standardButton catEdit">Edit</button>
+                    {eName === false ? (
+                      <>
+                        <p className="catTxt">{d.name}</p>
+                        <button
+                          className="standardButton catEdit"
+                          onClick={() => setEName(true)}
+                        >
+                          Edit
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="greenButton catSave"
+                          onClick={() =>
+                            edit(
+                              "name",
+                              document.getElementById("eN").value,
+                              setEName
+                            )
+                          }
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="redButton catCancel"
+                          onClick={() => setEName(false)}
+                        >
+                          Cancel
+                        </button>
+                        <input
+                          defaultValue={d.name}
+                          className="catTxt"
+                          id="eN"
+                        ></input>
+                      </>
+                    )}
                     <p className="catDesc">
                       This will be visible when you comment, share or connect.
                     </p>
@@ -88,21 +174,68 @@ export default function UserSettings() {
 
                   <div className="cat">
                     <p className="catHead">Email</p>
-                    <p className="catTxt">{d.email}</p>
-                    <button className="standardButton catEdit">Edit</button>
+                    {eEmail === false ? (
+                      <>
+                        <p className="catTxt">{d.email}</p>
+                        <button
+                          className="standardButton catEdit"
+                          onClick={() => setEEmail(true)}
+                        >
+                          Edit
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="greenButton catSave"
+                          onClick={() =>
+                            edit(
+                              "email",
+                              document.getElementById("eE").value,
+                              setEEmail
+                            )
+                          }
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="redButton catCancel"
+                          onClick={() => setEEmail(false)}
+                        >
+                          Cancel
+                        </button>
+                        <input
+                          defaultValue={d.email}
+                          className="catTxt"
+                          id="eE"
+                        ></input>
+                      </>
+                    )}
                     <p className="catDesc">
-                      This is used for OTPs, and Password Resets.
+                      This will be visible when you comment, share or connect.
                     </p>
                   </div>
 
                   <div className="cat">
                     <p className="catHead">Profile Picture</p>
-                    <button
+                    <input
+                      style={{ display: "none" }}
+                      type="file"
+                      id="fileInput"
+                      accept="image/png, image/jpeg, image/gif"
+                      onChange={(e) => updateProfilePic(e.target.files[0])}
+                    ></input>
+                    <label
+                      htmlFor="fileInput"
                       className="standardButton catEdit"
-                      style={{ marginTop: "-30px" }}
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
                     >
                       Edit
-                    </button>
+                    </label>
                     <p className="catDesc">
                       This appears next to your name.
                       <br />
@@ -505,6 +638,28 @@ export default function UserSettings() {
             height: 40px;
             margin-left: 500px;
             margin-top: -65px;
+            padding-left: 10px;
+            padding-right: 10px;
+            width: 70px;
+          }
+
+          .catSave {
+            z-index: 100;
+            position: absolute;
+            height: 40px;
+            margin-left: 500px;
+            margin-top: -25px;
+            padding-left: 10px;
+            padding-right: 10px;
+            width: 70px;
+          }
+
+          .catCancel {
+            z-index: 100;
+            position: absolute;
+            height: 40px;
+            margin-left: 580px;
+            margin-top: -25px;
             padding-left: 10px;
             padding-right: 10px;
             width: 70px;
