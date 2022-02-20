@@ -12,4 +12,4 @@ Feb 17 : Had the MIT thing today, passed it :) Progress is pretty good : user-se
 
 Feb 18 : Not much progress today, but got the Cloudinary thing working and have started the User Settings Change Protocol. I have to study but will probably do another commit later today. PEACE OUT!
 
-Feb 20 : No Progress Yesterday :(. Minimal progress today as well. Am really involved in my exams rn. For the next like 1 month imma be busy with that. But as soon as they are over imma grind 5 hours a day. Bbye.
+Feb 20 : No Progress Yesterday :(. Minimal progress today as well. Am really involved in my exams rn. For the next like 1 month imma be busy with that. But as soon as they are over imma grind 5 hours a day. Bbye. PEACE OUT!
