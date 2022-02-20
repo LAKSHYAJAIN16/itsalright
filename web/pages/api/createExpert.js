@@ -10,6 +10,8 @@ export default async function handler(req, res) {
   } else {
     //Firestore query
     const id = genID(15);
+    const apiKey = genID(15);
+    const oauthKey = genID(15);
 
     //Hash Password
     const salt = randomBytes(16).toString("hex");
@@ -29,6 +31,19 @@ export default async function handler(req, res) {
       password: newPassword,
       email: req.body.email,
       profilePic: `https://avatars.dicebear.com/api/big-ears-neutral/${id}.svg`,
+      origin: "def",
+      notifications: {
+        nEmail: req.body.email,
+        security: true,
+        newsletters: true,
+        comment: true,
+        security: true,
+        message : true
+      },
+      twofa: false,
+      apiKey: apiKey,
+      oauthKey: oauthKey,
+      ts: new Date(Date.now()).toISOString(),
     };
     await setDoc(doc(db, "users", id), newData);
 

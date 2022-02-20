@@ -8,8 +8,9 @@ import {
   where,
   onSnapshot,
 } from "firebase/firestore";
-import NotificationManager from "../../../lib/NotificationManager";
 
+import Meta from "../../../components/Meta";
+import NotificationManager from "../../../lib/NotificationManager";
 import styles from "../../../styles/Waitroom.module.css";
 import cardStyles from "../../../styles/Card.module.css";
 import Navbar from "../../../components/Navbar";
@@ -77,6 +78,7 @@ export default function expert() {
 
   return (
     <>
+      <Meta title="Connect to a user" desc="" />
       <Navbar />
       <main>
         <h1 className={styles.head}>Available Calls</h1>

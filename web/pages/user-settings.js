@@ -18,6 +18,13 @@ export default function UserSettings() {
   //Edit States
   const [eName, setEName] = useState(false);
   const [eEmail, setEEmail] = useState(false);
+  const [eNEmail, setENEmail] = useState(false);
+  const [eExProf, setEExProf] = useState(false);
+  const [eExBio, setEExBio] = useState(false);
+  const [eExSocial, setEExSocial] = useState(false);
+  const [rUID, setRUID] = useState(false);
+  const [rAPIKey, setRAPIKey] = useState(false);
+  const [rOAuthKey, setROAuthKey] = useState(false);
 
   useEffect(() => {
     setD(JSON.parse(localStorage.getItem("user") || ""));
@@ -60,6 +67,78 @@ export default function UserSettings() {
     setPass(true);
   };
 
+  const editNested = async (nestedName, fieldName, value, hook) => {
+    setPass(false);
+
+    //Send Axios request
+    const res = await axios.post("/api/update-nested-settings", {
+      nestedName,
+      fieldName,
+      value,
+      id: d.id,
+    });
+    console.log(res);
+
+    //Update Field in D Object
+    const temp_d = d;
+    d[nestedName][fieldName] = value;
+
+    //Update Cache
+    const user = JSON.parse(localStorage.getItem("user") || "");
+    user[nestedName][fieldName] = value;
+    localStorage.setItem("user", JSON.stringify(user));
+
+    //Update all states
+    setD(temp_d);
+    hook(false);
+    setPass(true);
+  };
+
+  const editBool = async (nestedName, fieldName, value) => {
+    //Send Axios request
+    const res = await axios.post("/api/update-nested-settings", {
+      nestedName,
+      fieldName,
+      value,
+      id: d.id,
+    });
+    console.log(res);
+
+    //Update Field in D Object
+    const temp_d = d;
+    d[nestedName][fieldName] = value;
+
+    //Update Cache
+    const user = JSON.parse(localStorage.getItem("user") || "");
+    user[nestedName][fieldName] = value;
+    localStorage.setItem("user", JSON.stringify(user));
+
+    //Update all states
+    setD(temp_d);
+  };
+
+  const editSingleBool = async (fieldName, value) => {
+    //Send Axios request
+    const res = await axios.post("/api/update-settings", {
+      fieldName,
+      value,
+      id: d.id,
+    });
+    console.log(res);
+
+    //Update Field in D Object
+    const temp_d = d;
+    d[fieldName] = value;
+
+    //Update Cache
+    const user = JSON.parse(localStorage.getItem("user") || "");
+    user[fieldName] = value;
+    localStorage.setItem("user", JSON.stringify(user));
+
+    //Update all states
+    setD(temp_d);
+  };
+
   const updateProfilePic = async (file) => {
     if (file !== null) {
       const formData = new FormData();
@@ -77,6 +156,30 @@ export default function UserSettings() {
         console.log("UPLOADED IMAGE TO CLOUD");
       });
     }
+  };
+
+  const signout = () => {
+    localStorage.clear();
+    window.location.replace("/home");
+  };
+
+  const delAccount = async () => {
+    setPass(false);
+    await axios.post("/api/delAccount", { id: d.id });
+    localStorage.clear();
+    setPass(true);
+    window.location.replace("/home");
+  };
+
+  const exitExpertProgram = async () => {
+    setPass(false);
+    await axios.post("/api/exitExpertProgram", { id: d.id });
+    const dat = d;
+    d.isExpert = false;
+    setD(dat);
+    localStorage.setItem("user", JSON.stringify(d));
+    setPass(true);
+    window.location.reload();
   };
 
   return (
@@ -126,6 +229,7 @@ export default function UserSettings() {
               </div>
 
               <div className="settings">
+                {/* Profile */}
                 <div className="category" ref={profile}>
                   <p className="categoryHeader">Profile</p>
                   <div className="cat">
@@ -261,14 +365,52 @@ export default function UserSettings() {
                 <br />
                 <br />
                 <br />
+                {/* Notifications */}
                 <div className="category" ref={notifications}>
                   <p className="categoryHeader">Notifications</p>
                   <div className="cat">
                     <p className="catHead">Notification Email</p>
-                    <p className="catTxt">{d.email}</p>
-                    <button className="standardButton catEdit">Edit</button>
+                    {eNEmail === false ? (
+                      <>
+                        <p className="catTxt">{d.notifications.nEmail}</p>
+                        <button
+                          className="standardButton catEdit"
+                          onClick={() => setENEmail(true)}
+                        >
+                          Edit
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="greenButton catSave"
+                          onClick={() =>
+                            editNested(
+                              "notifications",
+                              "nEmail",
+                              document.getElementById("eNe").value,
+                              setENEmail
+                            )
+                          }
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="redButton catCancel"
+                          onClick={() => setENEmail(false)}
+                        >
+                          Cancel
+                        </button>
+                        <input
+                          defaultValue={d.notifications.nEmail}
+                          className="catTxt"
+                          id="eNe"
+                        ></input>
+                      </>
+                    )}
                     <p className="catDesc">
-                      This will be used for notifications and newsletters.
+                      This is used for newsletters, security notifications,
+                      comment notifications, etc.
                       <br />
                       By default, the notification email is the same as the
                       regular email.
@@ -291,6 +433,14 @@ export default function UserSettings() {
                         type="checkbox"
                         id="news"
                         className="switch"
+                        defaultChecked={d.notifications.newsletters}
+                        onChange={(e) =>
+                          editBool(
+                            "notifications",
+                            "newsletters",
+                            e.target.checked
+                          )
+                        }
                       ></input>
                       <label htmlFor="news" className="switch-label"></label>
                     </p>
@@ -311,6 +461,10 @@ export default function UserSettings() {
                         type="checkbox"
                         id="cment"
                         className="switch"
+                        defaultChecked={d.notifications.comment}
+                        onChange={(e) =>
+                          editBool("notifications", "comment", e.target.checked)
+                        }
                       ></input>
                       <label htmlFor="cment" className="switch-label"></label>
                     </p>
@@ -327,7 +481,15 @@ export default function UserSettings() {
                       className="catTxt"
                       style={{ marginTop: "-75px", marginLeft: "500px" }}
                     >
-                      <input type="checkbox" id="rm" className="switch"></input>
+                      <input
+                        type="checkbox"
+                        id="rm"
+                        className="switch"
+                        defaultChecked={d.notifications.message}
+                        onChange={(e) =>
+                          editBool("notifications", "message", e.target.checked)
+                        }
+                      ></input>
                       <label htmlFor="rm" className="switch-label"></label>
                     </p>
                   </div>
@@ -346,7 +508,19 @@ export default function UserSettings() {
                       className="catTxt"
                       style={{ marginTop: "-75px", marginLeft: "500px" }}
                     >
-                      <input type="checkbox" id="sn" className="switch"></input>
+                      <input
+                        type="checkbox"
+                        id="sn"
+                        className="switch"
+                        defaultChecked={d.notifications.security}
+                        onChange={(e) =>
+                          editBool(
+                            "notifications",
+                            "security",
+                            e.target.checked
+                          )
+                        }
+                      ></input>
                       <label htmlFor="sn" className="switch-label"></label>
                     </p>
                   </div>
@@ -355,14 +529,51 @@ export default function UserSettings() {
                 <br />
                 <br />
                 <br />
+                {/* Expert Features */}
                 <div className="category" ref={ef}>
                   <p className="categoryHeader">Expert Features</p>
                   {d.isExpert ? (
                     <>
                       <div className="cat">
                         <p className="catHead">Profession</p>
-                        <p className="catTxt">{d.expertData.profession}</p>
-                        <button className="standardButton catEdit">Edit</button>
+                        {eExProf === false ? (
+                          <>
+                            <p className="catTxt">{d.expertData.profession}</p>
+                            <button
+                              className="standardButton catEdit"
+                              onClick={() => setEExProf(true)}
+                            >
+                              Edit
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              className="greenButton catSave"
+                              onClick={() =>
+                                editNested(
+                                  "expertData",
+                                  "profession",
+                                  document.getElementById("exProf").value,
+                                  setEExProf
+                                )
+                              }
+                            >
+                              Save
+                            </button>
+                            <button
+                              className="redButton catCancel"
+                              onClick={() => setEExProf(false)}
+                            >
+                              Cancel
+                            </button>
+                            <input
+                              defaultValue={d.expertData.profession}
+                              className="catTxt"
+                              id="exProf"
+                            ></input>
+                          </>
+                        )}
                         <p className="catDesc">
                           This will be visible when someone will try to contact
                           you.
@@ -371,8 +582,44 @@ export default function UserSettings() {
 
                       <div className="cat">
                         <p className="catHead">Bio</p>
-                        <p className="catTxt">{d.expertData.bio}</p>
-                        <button className="standardButton catEdit">Edit</button>
+                        {eExBio === false ? (
+                          <>
+                            <p className="catTxt">{d.expertData.bio}</p>
+                            <button
+                              className="standardButton catEdit"
+                              onClick={() => setEExBio(true)}
+                            >
+                              Edit
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              className="greenButton catSave"
+                              onClick={() =>
+                                editNested(
+                                  "expertData",
+                                  "bio",
+                                  document.getElementById("exBio").value,
+                                  setEExBio
+                                )
+                              }
+                            >
+                              Save
+                            </button>
+                            <button
+                              className="redButton catCancel"
+                              onClick={() => setEExBio(false)}
+                            >
+                              Cancel
+                            </button>
+                            <input
+                              defaultValue={d.expertData.bio}
+                              className="catTxt"
+                              id="exBio"
+                            ></input>
+                          </>
+                        )}
                         <p className="catDesc">
                           This will be visible when someone will try to contact
                           you.
@@ -381,8 +628,44 @@ export default function UserSettings() {
 
                       <div className="cat">
                         <p className="catHead">Social Media</p>
-                        <p className="catTxt">{d.expertData.socialmedia}</p>
-                        <button className="standardButton catEdit">Edit</button>
+                        {eExSocial === false ? (
+                          <>
+                            <p className="catTxt">{d.expertData.socialmedia}</p>
+                            <button
+                              className="standardButton catEdit"
+                              onClick={() => setEExSocial(true)}
+                            >
+                              Edit
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              className="greenButton catSave"
+                              onClick={() =>
+                                editNested(
+                                  "expertData",
+                                  "socialmedia",
+                                  document.getElementById("exSm").value,
+                                  setEExSocial
+                                )
+                              }
+                            >
+                              Save
+                            </button>
+                            <button
+                              className="redButton catCancel"
+                              onClick={() => setEExSocial(false)}
+                            >
+                              Cancel
+                            </button>
+                            <input
+                              defaultValue={d.expertData.socialmedia}
+                              className="catTxt"
+                              id="exSm"
+                            ></input>
+                          </>
+                        )}
                         <p className="catDesc">
                           This will be visible when someone will try to contact
                           you.
@@ -405,6 +688,7 @@ export default function UserSettings() {
                             marginLeft: "100px",
                             marginTop: "10px",
                           }}
+                          onClick={() => exitExpertProgram()}
                         >
                           Exit Expert Program
                         </button>
@@ -420,6 +704,7 @@ export default function UserSettings() {
                 <br />
                 <br />
                 <br />
+                {/* Authentication */}
                 <div className="category" ref={auth}>
                   <p className="categoryHeader">Authentication</p>
                   <div className="cat">
@@ -427,9 +712,27 @@ export default function UserSettings() {
                       UserID
                     </p>
                     <p className="catTxt">
-                      <em>{d.id}</em>
+                      <em>{rUID === true ? d.id : "Reveal User ID"}</em>
                     </p>
-                    <button className="standardButton catEdit">Reveal</button>
+                    {rUID === false ? (
+                      <>
+                        <button
+                          className="standardButton catEdit"
+                          onClick={() => setRUID(true)}
+                        >
+                          Reveal
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="standardButton catEdit"
+                          onClick={() => setRUID(false)}
+                        >
+                          Hide
+                        </button>
+                      </>
+                    )}
                     <p className="catDesc">
                       This is your UserID. This can be used to signin via our
                       API, or for 2FA.
@@ -477,6 +780,10 @@ export default function UserSettings() {
                         type="checkbox"
                         id="2fa"
                         className="switch"
+                        defaultChecked={d.twofa}
+                        onChange={(e) =>
+                          editSingleBool("twofa", e.target.checked)
+                        }
                       ></input>
                       <label htmlFor="2fa" className="switch-label"></label>
                     </p>
@@ -486,18 +793,38 @@ export default function UserSettings() {
                 <br />
                 <br />
                 <br />
+                {/* API */}
                 <div className="category" ref={api}>
                   <p className="categoryHeader">API and Integration</p>
                   <div className="cat">
                     <p className="catHead" style={{ color: "red" }}>
-                      API key
+                      API Key
                     </p>
                     <p className="catTxt">
-                      <em>{d.id + d.id.split("").reverse().join("")}</em>
+                      <em>{rAPIKey === true ? d.apiKey : "Reveal API key"}</em>
                     </p>
-                    <button className="standardButton catEdit">Reveal</button>
+                    {rAPIKey === false ? (
+                      <>
+                        <button
+                          className="standardButton catEdit"
+                          onClick={() => setRAPIKey(true)}
+                        >
+                          Reveal
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="standardButton catEdit"
+                          onClick={() => setRAPIKey(false)}
+                        >
+                          Hide
+                        </button>
+                      </>
+                    )}
                     <p className="catDesc">
-                      This is your API Key, which can be used to access our API.
+                      This is your API Key. This can be used for accessing our
+                      API features.
                     </p>
                   </div>
 
@@ -506,12 +833,32 @@ export default function UserSettings() {
                       OAuth Key
                     </p>
                     <p className="catTxt">
-                      <em>{d.id.split("").reverse().join("")}</em>
+                      <em>
+                        {rOAuthKey === true ? d.oauthKey : "Reveal OAuth key"}
+                      </em>
                     </p>
-                    <button className="standardButton catEdit">Reveal</button>
+                    {rOAuthKey === false ? (
+                      <>
+                        <button
+                          className="standardButton catEdit"
+                          onClick={() => setROAuthKey(true)}
+                        >
+                          Reveal
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="standardButton catEdit"
+                          onClick={() => setROAuthKey(false)}
+                        >
+                          Hide
+                        </button>
+                      </>
+                    )}
                     <p className="catDesc">
-                      This is your API Key, which can be used to access our
-                      OAuth Features.
+                      This is your OAuth Key. This can be used for accessing our
+                      API features.
                     </p>
                   </div>
                 </div>
@@ -519,6 +866,7 @@ export default function UserSettings() {
                 <br />
                 <br />
                 <br />
+                {/* Danger */}
                 <div className="category" ref={danger}>
                   <p className="categoryHeader" style={{ color: "red" }}>
                     Danger
@@ -540,6 +888,7 @@ export default function UserSettings() {
                         marginLeft: "100px",
                         marginTop: "10px",
                       }}
+                      onClick={() => delAccount()}
                     >
                       Delete Account
                     </button>
@@ -560,6 +909,7 @@ export default function UserSettings() {
                         marginLeft: "100px",
                         marginTop: "10px",
                       }}
+                      onClick={() => signout()}
                     >
                       Signout
                     </button>
