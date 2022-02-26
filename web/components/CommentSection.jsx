@@ -399,14 +399,22 @@ export default function CommentSection({ comments, user, postID }) {
                 </>
               ) : (
                 <>
-                  <Dropdown.Item
-                    style={{ display: "flex", alignItems: "center" }}
+                  <a
+                    href={`/flag?v=${userID}&c=${comment.comment.id}`}
+                    style={{ color: "black" }}
+                    onClick={() =>
+                      window.location.replace(
+                        `/flag?v=${userID}&c=${comment.comment.id}&redirect_url=${window.location.href}`
+                      )
+                    }
                   >
-                    <i className="bx bxs-flag-alt dropdownIcon"></i>
-                    <a href={`/flag?v=${userID}&c=${comment.comment.id}`} style={{ color: "black" }}>
+                    <Dropdown.Item
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <i className="bx bxs-flag-alt dropdownIcon"></i>
                       Flag
-                    </a>
-                  </Dropdown.Item>
+                    </Dropdown.Item>
+                  </a>
                 </>
               )}
               {userID === user.id && (

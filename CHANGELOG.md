@@ -13,3 +13,5 @@ Feb 17 : Had the MIT thing today, passed it :) Progress is pretty good : user-se
 Feb 18 : Not much progress today, but got the Cloudinary thing working and have started the User Settings Change Protocol. I have to study but will probably do another commit later today. PEACE OUT!
 
 Feb 20 : No Progress Yesterday :(. Minimal progress today as well. Am really involved in my exams rn. For the next like 1 month imma be busy with that. But as soon as they are over imma grind 5 hours a day. Bbye. PEACE OUT!
+
+Feb 26 : Sheesh! Exams REALLY piling on. Had to take a break from coding. Pretty solid programming, Navbar is responsive, Flag works, and other bits and tweaks. But man, I'm so behind. Mix of a lot of things at once : exams, existential crisis, you know what I mean. Been playing the Piano, writing a book, reading a book, tons of stuff. Coding really had to take the backseat lol. More exams coming, more priorities. But after I'm done with the exams I swear imma grind 6 hours a day. Bbye. Peace out!

@@ -1,11 +1,19 @@
-import React, {useEffect} from "react";
-import Head from 'next/head';
+import React, { useEffect } from "react";
+import Head from "next/head";
 
-export default function Home() {
+export default function HomeSomething() {
   useEffect(() => {
-    //For now, redirect to home page
-    window.location.replace("/home");
-  }, [])
+    //Check if User is logged in
+    const loggedIn =
+      JSON.parse(localStorage.getItem("logged") || "false") || false;
+    if (loggedIn) {
+      //Redirect to browse
+      window.location.replace("/browse");
+    } else {
+      //For now, redirect to home page
+      window.location.replace("/home");
+    }
+  }, []);
   return (
     <div>
       <Head>
@@ -14,5 +22,5 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
     </div>
-  )
+  );
 }
