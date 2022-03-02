@@ -12,6 +12,7 @@ import Footer from "../../components/Footer";
 export default function singlePost(context) {
   const [hearts, setHearts] = useState([]);
   const [heartState, setHeartState] = useState(false);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     setHearts(context.props.hearts);
@@ -27,6 +28,9 @@ export default function singlePost(context) {
       }
     }
     setHeartState(alreadyHearted);
+
+    //Set User
+    setUser(JSON.parse(localStorage.getItem("user") || ""));
   }, []);
 
   const heart = async () => {
@@ -106,6 +110,19 @@ export default function singlePost(context) {
           </span>
 
           <div className="icons">
+            {user.id === context.props.user.id && (
+              <>
+                <i className="bx bx-trash delete-icon"></i>
+                <i
+                  className="bx bx-edit-alt delete-icon"
+                  style={{ color: "green" }}
+                ></i>
+              </>
+            )}
+          </div>
+          <br />
+
+          <div className="icons">
             {context.props.options.repliesAndHearts ? (
               <>
                 <i
@@ -122,7 +139,9 @@ export default function singlePost(context) {
               </>
             ) : (
               <>
-              <p style={{zoom:0.6}}>This User has Disabled Hearts on this Post</p>
+                <p style={{ zoom: 0.6 }}>
+                  This User has Disabled Hearts on this Post
+                </p>
               </>
             )}
           </div>
@@ -231,6 +250,13 @@ export default function singlePost(context) {
               .check-icon {
                 color: green;
                 zoom: 1.4;
+                margin-top: -5px;
+              }
+
+              .delete-icon {
+                color: red;
+                zoom: 1.4;
+                cursor: pointer;
                 margin-top: -5px;
               }
 

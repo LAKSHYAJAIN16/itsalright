@@ -36,23 +36,11 @@ export default function expert() {
 
     //Register Snapshot listener so we can change in realtime
     const snapListner = onSnapshot(collection(db, "available-calls"), (col) => {
+      //Set Available Calls
       const newCalls = [];
       col.docs.forEach((document) => {
         if (document.data().assigned === false) {
           newCalls.push(document.data());
-        }
-      });
-
-      //Check Doc Changes. If a new Call was created, notify expert
-      col.docChanges().forEach((change) => {
-        if (change.type === "added" && change.doc.data().assigned === false) {
-          NotificationManager.addNotification(
-            `${
-              change.doc.data().creator.name
-            } wants to connect with you! Go to the Connect Panel and check it out!`,
-            "Someone wants to connect with you",
-            "blue"
-          );
         }
       });
       setCalls(newCalls);

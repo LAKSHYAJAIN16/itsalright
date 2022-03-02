@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Toast from "react-bootstrap/Toast";
 import Head from "next/head";
+import { collection, onSnapshot } from "firebase/firestore";
 
 import NotificationManager from "../lib/NotificationManager";
+import { db } from "../lib/firebase";
 
 export default function Notifications() {
   const [manager, setManager] = useState(null);
@@ -21,6 +23,32 @@ export default function Notifications() {
 
   useEffect(() => {
     NotificationManager.register(add, sub);
+
+    const user = JSON.parse(localStorage.getItem("user") || "").isExpert;
+    console.log(user);
+    if (user === true) {
+      //Register Snap Listner
+      const snapListner = onSnapshot(
+        collection(db, "available-calls"),
+        (col) => {
+          //Check Doc Changes. If a new Call was created, notify expert
+          col.docChanges().forEach((change) => {
+            if (
+              change.type === "added" &&
+              change.doc.data().assigned === false
+            ) {
+              NotificationManager.addNotification(
+                `${
+                  change.doc.data().creator.name
+                } wants to connect with you! Go to the Connect Panel and check it out!`,
+                "Someone wants to connect with you",
+                "blue"
+              );
+            }
+          });
+        }
+      );
+    }
   }, []);
 
   const Notification = ({ data }) => {
