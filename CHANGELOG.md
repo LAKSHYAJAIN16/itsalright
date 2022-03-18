@@ -17,3 +17,5 @@ Feb 20 : No Progress Yesterday :(. Minimal progress today as well. Am really inv
 Feb 26 : Sheesh! Exams REALLY piling on. Had to take a break from coding. Pretty solid programming, Navbar is responsive, Flag works, and other bits and tweaks. But man, I'm so behind. Mix of a lot of things at once : exams, existential crisis, you know what I mean. Been playing the Piano, writing a book, reading a book, tons of stuff. Coding really had to take the backseat lol. More exams coming, more priorities. But after I'm done with the exams I swear imma grind 6 hours a day. Bbye. Peace out!
 
 March 2 : Another Big Sheesh. 4 days no programming. Exams from the 5th. Just some minor edits today. Overloaded. Existential Crisis. Coding will have to wait. Bbye.
+
+March 18 : That's right, I'm back BOIS! EXAMS OVER. 5 HOURS A DAY FROM NOW ON. TONS OF PROGRESS TODAY. Added delete functionality, share and home pages are now partially responsive. The gameplan for tommorow is to get the domain up and running. LES GO BOIZ!

@@ -9,7 +9,7 @@ import TextViewer from "../../components/TextViewer";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
-export default function singlePost(context) {
+export default function SinglePost(context) {
   const [hearts, setHearts] = useState([]);
   const [heartState, setHeartState] = useState(false);
   const [user, setUser] = useState({});
@@ -78,6 +78,11 @@ export default function singlePost(context) {
     }
   };
 
+  const deleteFN = async () => {
+    await axios.post("/api/delPost", { id: context.props.id });
+    window.location.replace("/");
+  };
+
   return (
     <>
       <Head>
@@ -112,10 +117,9 @@ export default function singlePost(context) {
           <div className="icons">
             {user.id === context.props.user.id && (
               <>
-                <i className="bx bx-trash delete-icon"></i>
                 <i
-                  className="bx bx-edit-alt delete-icon"
-                  style={{ color: "green" }}
+                  className="bx bx-trash delete-icon"
+                  onClick={() => deleteFN()}
                 ></i>
               </>
             )}

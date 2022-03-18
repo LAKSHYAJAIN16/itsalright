@@ -12,29 +12,49 @@ export default function Home() {
   const [display5, setDisplay5] = useState(false);
 
   useEffect(() => {
-    let x = 0;
-    window.addEventListener("scroll", () => {
-      x += 10;
+    //We Only want the effect on desktops
+    var is_mobile =
+      !!navigator.userAgent.match(/iphone|android|blackberry/gi) || false;
+    if (is_mobile === false) {
+      let x = 0;
+      window.addEventListener("scroll", () => {
+        x += 10;
 
-      if (x > 30) {
-        setDisplay2(true);
-      }
-      if (x >= 380) {
-        setDisplay3(true);
-      }
+        if (x > 30) {
+          setDisplay2(true);
+        }
+        if (x >= 380) {
+          setDisplay3(true);
+        }
 
-      if (x >= 700) {
-        setDisplay4(true);
-      }
+        if (x >= 700) {
+          setDisplay4(true);
+        }
 
-      if (x >= 1000) {
-        setDisplay5(true);
-      }
-    });
+        if (x >= 1000) {
+          setDisplay5(true);
+        }
+      });
+    } else if (is_mobile) {
+      setDisplay2(true);
+      setDisplay3(true);
+      setDisplay4(true);
+      setDisplay5(true);
+    }
   }, []);
 
+  //Checks for middle mouse button
+  const scrollFailSafe = (e) => {
+    if (e.button === 1) {
+      setDisplay2(true);
+      setDisplay3(true);
+      setDisplay4(true);
+      setDisplay5(true);
+    }
+  };
+
   return (
-    <div>
+    <div onMouseDown={(e) => scrollFailSafe(e)}>
       <Head>
         <title>Its alright : Share your problems and get Solutions</title>
         <meta
@@ -76,19 +96,16 @@ export default function Home() {
             <p className={styles.cardHeading}>Never Alone</p>
             <p className={styles.cardDescription}>
               <span className={styles.itsalrightspan}>Itsalright</span> is
-              completely based on the community : over <b>100k</b> and growing
-              <br />
+              completely based on the community : over <b>1k</b> and growing.
               With the Browse Feature, you can look at other people's problems
-              and
-              <br />
-              help them find a solution. We also feature <b>approved experts</b>
-              , who
-              <br />
-              can give expert advice according to their experience.
+              and help them find a solution. We also feature{" "}
+              <b>approved experts</b>, who can give expert advice according to
+              their experience.
               <br />
               <br />
               You are never alone on{" "}
-              <span className={styles.itsalrightspan}>itsalright</span>
+              <span className={styles.itsalrightspan}>itsalright</span>, there
+              is always someone to assist you.
             </p>
           </div>
           <img
@@ -104,13 +121,10 @@ export default function Home() {
             <div>
               <p className={styles.cardHeading}>Share Freely</p>
               <p className={styles.cardDescription}>
-                We give you a platform where you can share your problems
-                <br />
-                or doubts almost instantly. You can choose to post anonymously,
-                or can
-                <br />
-                opt for our <b>8</b> total security features here at{" "}
-                <span className={styles.itsalrightspan}>itsalright</span>
+                We give you a platform where you can share your problems or
+                doubts almost instantly. You can choose to post anonymously, or
+                can opt for our other security features here at{" "}
+                <span className={styles.itsalrightspan}>itsalright</span> .
                 <br />
                 <br />
                 No Judging, No Fear, only solutions and positives at
@@ -121,7 +135,6 @@ export default function Home() {
               className={styles.cardImage}
               src="https://images.pexels.com/photos/4021565/pexels-photo-4021565.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
               alt="image_"
-              style={{ marginLeft: "88px" }}
             ></img>
           </div>
         )}
@@ -130,18 +143,12 @@ export default function Home() {
         {display3 && (
           <div className={`${styles.card}`}>
             <div>
-              <p className={styles.cardHeading}>Connect and Contact</p>
+              <p className={styles.cardHeading}>Connect & Contact</p>
               <p className={styles.cardDescription}>
                 When feeling down, connecting to a friend or person who can help
-                is the
-                <br />
-                most important. Our Connect feature connects you with a random
-                expert
-                <br />
-                who will help you. Or, you can contact a specific person using
-                the
-                <br />
-                contact feauture.
+                is the most important. Our Connect feature connects you with a
+                random expert who will help you. Or, you can contact a specific
+                person using the contact feature.
                 <br />
                 <br />
                 Connect, Contact and Resolve on{" "}
@@ -152,7 +159,6 @@ export default function Home() {
               className={styles.cardImage}
               src="https://images.pexels.com/photos/1181681/pexels-photo-1181681.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
               alt="image_"
-              style={{ marginLeft: "80px" }}
             ></img>
           </div>
         )}
@@ -161,20 +167,13 @@ export default function Home() {
         {display4 && (
           <div className={`${styles.card}`}>
             <div>
-              <p className={styles.cardHeading}>Expertise and Experience</p>
+              <p className={styles.cardHeading}>Expertise & Wisdom</p>
               <p className={styles.cardDescription}>
                 Here, we have over <b>1900</b> certified doctors, motivational
-                speakers,
-                <br />
-                teachers and experts for any problem you may have. Everyday
-                these
-                <br />
-                experts donate countless hours to help the community and solve
-                your
-                <br />
-                problems. You can consult these experts <b>
-                  free of cost
-                </b> at{" "}
+                speakers, teachers and experts for any problem you may have.
+                Everyday these experts donate countless hours to help the
+                community. You can consult these experts{" "}
+                <b>free of cost</b> at{" "}
                 <span className={styles.itsalrightspan}>itsalright</span>.
                 <br />
                 <br />
@@ -186,7 +185,6 @@ export default function Home() {
               className={styles.cardImage}
               src="https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1  "
               alt="image_"
-              style={{ marginLeft: "50px" }}
             ></img>
           </div>
         )}
@@ -207,7 +205,7 @@ export default function Home() {
                 <div className={styles.testimonialPreHead}>
                   <img
                     className={styles.testimonialImage}
-                    src="https://randomuser.me/api/portraits/men/13.jpg"
+                    src="/assets/john.jpg"
                   ></img>
                   <div>
                     <p className={styles.testimonialName}>John Williams</p>
@@ -228,7 +226,7 @@ export default function Home() {
                 <div className={styles.testimonialPreHead}>
                   <img
                     className={styles.testimonialImage}
-                    src="https://randomuser.me/api/portraits/men/82.jpg"
+                    src="/assets/mark.jpg"
                   ></img>
                   <div>
                     <p className={styles.testimonialName}>Mark Hadad</p>
@@ -248,7 +246,7 @@ export default function Home() {
                 <div className={styles.testimonialPreHead}>
                   <img
                     className={styles.testimonialImage}
-                    src="https://randomuser.me/api/portraits/men/69.jpg"
+                    src="/assets/parth.jpg"
                   ></img>
                   <div>
                     <p className={styles.testimonialName}>Parth Parminder</p>
@@ -270,7 +268,7 @@ export default function Home() {
                 <div className={styles.testimonialPreHead}>
                   <img
                     className={styles.testimonialImage}
-                    src="https://randomuser.me/api/portraits/men/3.jpg"
+                    src="/assets/nout.jpg"
                   ></img>
                   <div>
                     <p className={styles.testimonialName}>Nout Natanail</p>
@@ -296,7 +294,7 @@ export default function Home() {
                 <div className={styles.testimonialPreHead}>
                   <img
                     className={styles.testimonialImage}
-                    src="https://randomuser.me/api/portraits/women/58.jpg"
+                    src="/assets/wendy.jpg"
                   ></img>
                   <div>
                     <p className={styles.testimonialName}>Wendy Smith</p>
@@ -315,7 +313,7 @@ export default function Home() {
                 <div className={styles.testimonialPreHead}>
                   <img
                     className={styles.testimonialImage}
-                    src="https://randomuser.me/api/portraits/women/88.jpg"
+                    src="/assets/loui.jpg"
                   ></img>
                   <div>
                     <p className={styles.testimonialName}>Louisette Odila</p>
@@ -341,7 +339,7 @@ export default function Home() {
                 <div className={styles.testimonialPreHead}>
                   <img
                     className={styles.testimonialImage}
-                    src="https://randomuser.me/api/portraits/men/78.jpg"
+                    src="/assets/joe.jpg"
                   ></img>
                   <div>
                     <p className={styles.testimonialName}>
@@ -362,7 +360,7 @@ export default function Home() {
                 <div className={styles.testimonialPreHead}>
                   <img
                     className={styles.testimonialImage}
-                    src="https://randomuser.me/api/portraits/men/93.jpg"
+                    src="/assets/reg.jpg"
                   ></img>
                   <div>
                     <p className={styles.testimonialName}>Regulus Geno</p>
@@ -381,13 +379,11 @@ export default function Home() {
                 <div className={styles.testimonialPreHead}>
                   <img
                     className={styles.testimonialImage}
-                    src="https://randomuser.me/api/portraits/men/42.jpg"
+                    src="/assets/blake.jpg"
                   ></img>
                   <div>
                     <p className={styles.testimonialName}>Blake Lucas</p>
-                    <p className={styles.testimonialSubName}>
-                      Motivational Speaker
-                    </p>
+                    <p className={styles.testimonialSubName}>User</p>
                   </div>
                 </div>
               </div>

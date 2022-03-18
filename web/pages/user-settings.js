@@ -1062,6 +1062,60 @@ export default function UserSettings() {
           .switch-label:active:after {
             width: 160px;
           }
+
+          @media screen and (max-width : 1025px) {
+            .sidebar {
+              display : none;
+            }
+          }
+
+          @media screen and (max-width : 670px) {
+            .settings {
+              margin-left : 50px;
+            }
+          }
+
+          @media screen and (max-width : 630px) {
+            .settings {
+              margin-left : 20px;
+            }
+          }
+
+          @media screen and (max-width : 584px) {
+            .settings {
+              zoom : 0.9;
+            }
+          }
+
+          @media screen and (max-width : 543px) {
+            .settings {
+              zoom : 0.8;
+            }
+          }
+
+          @media screen and (max-width : 479px) {
+            .settings {
+              zoom : 0.7;
+            }
+          }
+
+          @media screen and (max-width : 418px) {
+            .settings {
+              zoom : 0.6;
+            }
+          }
+
+          @media screen and (max-width : 367px) {
+            .settings {
+              zoom : 0.5;
+            }
+          }
+
+          @media screen and (max-width : 285px) {
+            .settings {
+              zoom : 0.4;
+            }
+          }
         `}
       </style>
     </>

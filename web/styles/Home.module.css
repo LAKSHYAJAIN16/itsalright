@@ -2,9 +2,9 @@
   background-color: var(--secondary);
   background-image: var(--gradient);
   color: var(--primary);
+  max-width: 100%;
   min-height: 150vh;
-  width: 100%;
-  padding: 0px;
+  overflow-x: hidden;
 }
 
 .mainHeadBox {
@@ -19,6 +19,7 @@
   font-size: 60px;
   font-family: var(--mainfont);
   overflow: hidden;
+  text-align: center;
   white-space: nowrap; /* Keeps the content on a single line */
   border-right: 0.1em solid lightblue; /* The typwriter cursor */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
@@ -64,7 +65,7 @@
   align-items: center;
   flex-direction: row;
   margin-top: 100px;
-  margin-left: 200px;
+  margin-left: 60px;
   font-family: var(--mainfont);
 }
 
@@ -76,9 +77,9 @@
 }
 
 .cardDescription {
+  width: 48vw;
   font-size: 1em;
   font-weight: 300;
-  opacity: 0;
   line-height: 130%;
   font-family: var(--mainfont);
   animation: cardHeadingIn 1s 0.7s ease forwards;
@@ -117,7 +118,7 @@
   border-radius: 30px;
 }
 
-.testimonialPreHead{
+.testimonialPreHead {
   margin-top: 14px;
   display: flex;
 }
@@ -144,10 +145,10 @@
     width: 0;
   }
   50% {
-    width: 63%;
+    width: 840px;
   }
   100% {
-    width: 63%;
+    width: 840px;
   }
 }
 
@@ -167,5 +168,233 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 1070px) {
+  .card {
+    margin-left: 40px;
+  }
+}
+
+@media screen and (max-width : 1020px) {
+  .card {
+    margin-left: 30px;
+  }
+}
+
+@media screen and (max-width : 990px) {
+  .card {
+    zoom: 0.9;
+  }
+}
+
+@media screen and (max-width : 875px) {
+  .card {
+    zoom: 0.8;
+  }
+
+  .head {
+    font-size: 50px;
+  }
+
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+    50% {
+      width: 730px;
+    }
+    100% {
+      width: 730px;
+    }
+  }
+
+}
+
+@media screen and (max-width : 734px) {
+  .head {
+    font-size: 40px;
+  }
+
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+    50% {
+      width: 580px;
+    }
+    100% {
+      width: 580px;
+    }
+  }
+
+}
+
+@media screen and (max-width : 700px) {
+  .card {
+    zoom: 0.75;
+  }
+}
+
+@media screen and (max-width : 602px) {
+  .cardImage {
+    margin-left: 80px !important;
+  }
+
+  .head {
+    font-size: 35px;
+  }
+
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+    50% {
+      width: 490px;
+    }
+    100% {
+      width: 490px;
+    }
+  }
+}
+
+@media screen and (max-width : 561px) {
+  /* Absolutely change the FRICKING UI */
+  .card {
+    zoom: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0px;
+    flex-direction: column;
+  }
+
+  .cardHeading {
+    text-align: center;
+  }
+
+  .cardDescription {
+    width: 90vw;
+    margin-bottom: 20px;
+  }
+
+  .cardImage {
+    margin-left: 0px !important;
+    zoom: 1;
+  }
+}
+
+@media screen and (max-width : 519px) {
+  .head {
+    font-size: 30px;
+  }
+
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+    50% {
+      width: 430px;
+    }
+    100% {
+      width: 430px;
+    }
+  }
+}
+
+@media screen and (max-width : 491px) {
+  .cardHeading {
+    zoom: 0.9;
+  }
+
+  .cardDescription {
+    zoom: 0.9;
+  }
+}
+
+@media screen and (max-width : 449px) {
+  .head {
+    font-size: 27px;
+  }
+
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+    50% {
+      width: 390px;
+    }
+    100% {
+      width: 390px;
+    }
+  }
+}
+
+@media screen and (max-width : 419px) {
+  .cardHeading {
+    zoom: 0.8;
+  }
+
+  .cardDescription {
+    zoom: 0.8;
+  }
+}
+
+@media screen and (max-width : 402px) {
+  .head {
+    font-size: 25px;
+  }
+
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+    50% {
+      width: 370px;
+    }
+    100% {
+      width: 370px;
+    }
+  }
+}
+
+@media screen and (max-width : 376px) {
+  .head {
+    font-size: 23px;
+  }
+
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+    50% {
+      width: 340px;
+    }
+    100% {
+      width: 340px;
+    }
+  }
+}
+
+@media screen and (max-width : 367px) {
+  .cardHeading {
+    zoom: 0.7;
+  }
+
+  .cardDescription {
+    zoom: 0.7;
+  }
+}
+
+@media screen and (max-width : 299px) {
+  .cardHeading {
+    zoom: 0.6;
+    text-align: center;
+  }
+
+  .cardDescription {
+    zoom: 0.6;
+    text-align: center;
   }
 }

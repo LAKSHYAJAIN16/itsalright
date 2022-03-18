@@ -1,5 +1,4 @@
 import axios from "axios";
-import moment from "moment";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 
@@ -25,11 +24,10 @@ export default function MessagesPage() {
     const data = res.data.data;
     const arr = Object.keys(data).map((key) => data[key]);
 
-    //Sort them using Cocktail Sort
+    //Sort them using Cocktail Sort so that the latest are first
     let swapped = true;
     let start = 0;
     let end = arr.length;
-
     while (swapped == true) {
       // reset the swapped flag on entering the
       // loop, because it might be true from a
@@ -83,8 +81,6 @@ export default function MessagesPage() {
     setRender(false);
     setTalkee(talker);
     setSelectedChat(messages);
-
-    await sleep(10);
     setRender(true);
   };
 
@@ -95,6 +91,25 @@ export default function MessagesPage() {
       await switchChatFN(val.messages, val.talkee);
       setRender(false);
       setWaiting(true);
+
+      //THESE LINES OF CODE TOOK ME 3 MONTHS
+      //According to Javascript [] = 0
+      //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAH
+      if (typeof window !== "undefined") {
+        try {
+          enableShaderQues();
+          startAnimations();
+          initiateBackendSocket();
+          loadMSGS();
+
+          if(renderQue === val.unSeenMessages){
+            reloadMSGS();
+            val.unSeenMessages = 0;
+          }
+        } catch (err) {
+          val.unSeenMessages = 0;
+        }
+      }
 
       await sleep(10);
       setRender(true);
