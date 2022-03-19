@@ -2,6 +2,7 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+import Meta from "../components/Meta";
 import Expert from "../components/Expert";
 import Procrastinator from "../components/Procrastinator";
 import Navbar from "../components/Navbar";
@@ -43,8 +44,14 @@ export default function contact() {
           href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
           rel="stylesheet"
         ></link>
-        <title>Contact Experts at itsalright</title>
       </Head>
+
+      <Meta
+        title={"Contact Experts"}
+        desc={
+          "Contact Doctors, Teachers, Motivational Speakers, etc on itsalright"
+        }
+      />
       <div className="bg" style={{ minHeight: "100vh" }}>
         <Navbar />
         <div className="content">

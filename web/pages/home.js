@@ -75,7 +75,7 @@ export default function Home() {
           <span>
             <a href="/signup">
               <button
-                className="standardButton"
+                className={`standardButton  ${styles.buttonFormats}`}
                 style={{
                   width: "200px",
                   height: "50px",

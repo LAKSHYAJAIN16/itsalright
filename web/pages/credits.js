@@ -1,10 +1,13 @@
 import React from "react";
+
+import Meta from "../components/Meta";
 import Navbar from "../components/Navbar";
 
-export default function masthead() {
+export default function Credits() {
   return (
     <>
       <Navbar />
+      <Meta title={"Credits"} desc={"The Credits for Itsalright"} />
       <div className="content" style={{ textAlign: "center" }}>
         <h1>Credits</h1>
         <br />

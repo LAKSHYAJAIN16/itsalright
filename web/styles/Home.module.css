@@ -37,27 +37,8 @@
   font-size: 1em !important;
 }
 
-.signupbutton {
-  margin-top: 20px;
-  height: 50px;
-  width: 200px;
-  border-radius: 25px;
-  background: #acb6e5;
-  background: -webkit-linear-gradient(to right, #86fde8, #acb6e5);
-  background: linear-gradient(to right, #86fde8, #acb6e5);
-  border: 1px solid transparent;
-  outline: none;
-  color: black;
-  font-weight: 300;
-  font-size: 1.2em;
-  font-family: var(--mainfont);
-  cursor: pointer;
-  transition: all 0.5s ease;
-}
-
-.signupbutton:hover {
-  border: 1px solid black;
-  font-size: 1.25em;
+.buttonFormats {
+  /* Empty CSS CLASS for responsiveness */
 }
 
 .card {
@@ -171,25 +152,67 @@
   }
 }
 
+@media screen and (max-width: 1215px) {
+  .testimonialRow {
+    zoom: 0.9;
+  }
+}
+
 @media screen and (max-width: 1070px) {
   .card {
     margin-left: 40px;
   }
+
+  .testimonialRow {
+    zoom: 0.86;
+  }
+
+  .testimonial {
+    margin-left: 80px;
+  }
 }
 
-@media screen and (max-width : 1020px) {
+@media screen and (max-width: 1020px) {
   .card {
     margin-left: 30px;
   }
 }
 
-@media screen and (max-width : 990px) {
+@media screen and (max-width: 990px) {
   .card {
     zoom: 0.9;
   }
+
+  .testimonialRow {
+    zoom: 0.83;
+  }
+
+  .testimonial {
+    margin-left: 75px;
+  }
 }
 
-@media screen and (max-width : 875px) {
+@media screen and (max-width: 938px) {
+  .testimonialRow {
+    zoom: 0.81;
+  }
+
+  .testimonial {
+    margin-left: 72px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .testimonialRow {
+    zoom: 0.77;
+  }
+
+  .testimonial {
+    margin-left: 68px;
+  }
+}
+
+@media screen and (max-width: 875px) {
   .card {
     zoom: 0.8;
   }
@@ -209,12 +232,39 @@
       width: 730px;
     }
   }
-
 }
 
-@media screen and (max-width : 734px) {
+@media screen and (max-width: 832px) {
+  .testimonialRow {
+    zoom: 0.72;
+  }
+
+  .testimonial {
+    margin-left: 66px;
+  }
+}
+
+@media screen and (max-width: 783px) {
+  .testimonialRow {
+    zoom: 0.68;
+  }
+
+  .testimonial {
+    margin-left: 60px;
+  }
+}
+
+@media screen and (max-width: 734px) {
   .head {
     font-size: 40px;
+  }
+
+  .testimonialRow {
+    zoom: 0.63;
+  }
+
+  .testimonial {
+    margin-left: 56px;
   }
 
   @keyframes typing {
@@ -228,16 +278,35 @@
       width: 580px;
     }
   }
-
 }
 
-@media screen and (max-width : 700px) {
+@media screen and (max-width: 700px) {
   .card {
     zoom: 0.75;
   }
 }
 
-@media screen and (max-width : 602px) {
+@media screen and (max-width: 670px) {
+  .testimonialRow {
+    zoom: 0.6;
+  }
+
+  .testimonial {
+    margin-left: 56px;
+  }
+}
+
+@media screen and (max-width: 632px) {
+  .testimonialRow {
+    zoom: 0.5;
+  }
+
+  .testimonial {
+    margin-left: 50px;
+  }
+}
+
+@media screen and (max-width: 602px) {
   .cardImage {
     margin-left: 80px !important;
   }
@@ -259,7 +328,7 @@
   }
 }
 
-@media screen and (max-width : 561px) {
+@media screen and (max-width: 561px) {
   /* Absolutely change the FRICKING UI */
   .card {
     zoom: 1;
@@ -283,13 +352,25 @@
     margin-left: 0px !important;
     zoom: 1;
   }
+
+  .subhead {
+    font-size: 0.9em;
+  }
 }
 
-@media screen and (max-width : 519px) {
+@media screen and (max-width: 519px) {
   .head {
     font-size: 30px;
   }
 
+  .subhead {
+    font-size: 0.85em;
+  }
+
+  .buttonFormats {
+    zoom: 0.9 !important;
+  }
+
   @keyframes typing {
     0% {
       width: 0;
@@ -301,9 +382,23 @@
       width: 430px;
     }
   }
+
+  /* CHANGE THE FRICKING TESTIMONIALS SECTION BCUZ WHY NOT? */
+  .testimonialRow {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    zoom: 1 !important;
+  }
+
+  .testimonial {
+    margin-left: 0px !important;
+    margin-top: 30px !important;
+    width: 300px !important;
+  }
 }
 
-@media screen and (max-width : 491px) {
+@media screen and (max-width: 491px) {
   .cardHeading {
     zoom: 0.9;
   }
@@ -313,11 +408,21 @@
   }
 }
 
-@media screen and (max-width : 449px) {
+@media screen and (max-width: 472px) {
+  .subhead {
+    font-size: 0.8em;
+  }
+}
+
+@media screen and (max-width: 449px) {
   .head {
     font-size: 27px;
   }
 
+  .subhead {
+    font-size: 0.75em;
+  }
+
   @keyframes typing {
     0% {
       width: 0;
@@ -331,7 +436,13 @@
   }
 }
 
-@media screen and (max-width : 419px) {
+@media screen and (max-width: 409px) {
+  .subhead {
+    font-size: 0.7em;
+  }
+}
+
+@media screen and (max-width: 419px) {
   .cardHeading {
     zoom: 0.8;
   }
@@ -341,7 +452,7 @@
   }
 }
 
-@media screen and (max-width : 402px) {
+@media screen and (max-width: 402px) {
   .head {
     font-size: 25px;
   }
@@ -359,9 +470,13 @@
   }
 }
 
-@media screen and (max-width : 376px) {
+@media screen and (max-width: 376px) {
   .head {
     font-size: 23px;
+  }
+
+  .subhead {
+    font-size: 0.65em;
   }
 
   @keyframes typing {
@@ -377,7 +492,7 @@
   }
 }
 
-@media screen and (max-width : 367px) {
+@media screen and (max-width: 367px) {
   .cardHeading {
     zoom: 0.7;
   }
@@ -387,7 +502,13 @@
   }
 }
 
-@media screen and (max-width : 299px) {
+@media screen and (max-width: 352px) {
+  .subhead {
+    font-size: 0.55em;
+  }
+}
+
+@media screen and (max-width: 299px) {
   .cardHeading {
     zoom: 0.6;
     text-align: center;

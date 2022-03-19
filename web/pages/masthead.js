@@ -1,9 +1,12 @@
 import React from "react";
+
+import Meta from "../components/Meta";
 import Navbar from "../components/Navbar";
 
 export default function masthead() {
   return (
     <>
+      <Meta title={"Masthead"} desc={"Masthead"} />
       <Navbar />
       <div className="content" style={{ textAlign: "center" }}>
         <h1>Masthead</h1>
@@ -20,6 +23,9 @@ export default function masthead() {
         <p>The Dicebear Avatar API</p>
         <p>Javascript</p>
         <p>node.js</p>
+        <br />
+        <p>my brain</p>
+        <p>3 months</p>
       </div>
     </>
   );
