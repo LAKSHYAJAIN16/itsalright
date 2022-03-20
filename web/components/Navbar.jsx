@@ -71,56 +71,75 @@ export default function Navbar() {
                 <>
                   <div className="m-icons">
                     {/* Icon 1 : Browse*/}
-                    <div className="m-icon-wrapper">
-                      <OverlayTrigger
-                        placement="bottom"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={(e) => ToolTipComponent("Browse", e)}
-                      >
-                        <div className="">
-                          <i className="bx bx-home m-icon"></i>
-                        </div>
-                      </OverlayTrigger>
-                    </div>
+                    <a href="/Browse">
+                      <div className="m-icon-wrapper">
+                        <OverlayTrigger
+                          placement="bottom"
+                          delay={{ show: 250, hide: 400 }}
+                          overlay={(e) => ToolTipComponent("Browse", e)}
+                        >
+                          <div className="">
+                            <i className="bx bx-home m-icon"></i>
+                          </div>
+                        </OverlayTrigger>
+                      </div>
+                    </a>
 
                     {/* Icon 2 : Share/Write */}
-                    <div className="m-icon-wrapper">
-                      <OverlayTrigger
-                        placement="bottom"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={(e) => ToolTipComponent("Write", e)}
-                      >
-                        <div className="">
-                          <i className="bx bx-pencil m-icon"></i>
-                        </div>
-                      </OverlayTrigger>
-                    </div>
+                    <a href="/share">
+                      <div className="m-icon-wrapper">
+                        <OverlayTrigger
+                          placement="bottom"
+                          delay={{ show: 250, hide: 400 }}
+                          overlay={(e) => ToolTipComponent("Write", e)}
+                        >
+                          <div className="">
+                            <i className="bx bx-pencil m-icon"></i>
+                          </div>
+                        </OverlayTrigger>
+                      </div>
+                    </a>
 
                     {/* Icon 3 : Connect */}
-                    <div className="m-icon-wrapper">
-                      <OverlayTrigger
-                        placement="bottom"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={(e) => ToolTipComponent("Connect", e)}
-                      >
-                        <div className="">
-                          <i className="bx bx-globe-alt m-icon"></i>
-                        </div>
-                      </OverlayTrigger>
-                    </div>
+                    <a
+                      href={
+                        isExpert
+                          ? "/connect-rts/sta/expert"
+                          : "/connect-rts/sta/user"
+                      }
+                    >
+                      <div className="m-icon-wrapper">
+                        <OverlayTrigger
+                          placement="bottom"
+                          delay={{ show: 250, hide: 400 }}
+                          overlay={(e) => ToolTipComponent("Connect", e)}
+                        >
+                          <div className="">
+                            <i className="bx bx-globe-alt m-icon"></i>
+                          </div>
+                        </OverlayTrigger>
+                      </div>
+                    </a>
 
                     {/* Icon 4 : Contact */}
-                    <div className="m-icon-wrapper">
-                      <OverlayTrigger
-                        placement="bottom"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={(e) => ToolTipComponent("Contact", e)}
-                      >
-                        <div className="">
-                          <i className="bx bx-chat m-icon"></i>
-                        </div>
-                      </OverlayTrigger>
-                    </div>
+                    <a href={isExpert ? "/messages" : "/contact"}>
+                      <div className="m-icon-wrapper">
+                        <OverlayTrigger
+                          placement="bottom"
+                          delay={{ show: 250, hide: 400 }}
+                          overlay={(e) =>
+                            ToolTipComponent(
+                              isExpert ? "Messages" : "Contact",
+                              e
+                            )
+                          }
+                        >
+                          <div className="">
+                            <i className="bx bx-chat m-icon"></i>
+                          </div>
+                        </OverlayTrigger>
+                      </div>
+                    </a>
                   </div>
                   <div className="profilePic">
                     {logged ? (
@@ -254,7 +273,8 @@ export default function Navbar() {
                 }
 
                 .m-icon-wrapper {
-                  margin-left : 3.3vw;
+                  margin-left: 3.3vw;
+                  cursor: pointer;
                 }
 
                 .m-icon {
@@ -286,66 +306,71 @@ export default function Navbar() {
 
                 @media screen and (max-width: ${Keys["mobile-cutoff"]}px) {
                   .logoText {
-                    margin-left : 3vw;
-                    margin-right : 5vw;
+                    margin-left: 3vw;
+                    margin-right: 5vw;
                   }
 
                   .profilePic {
-                    margin-left : 5vw;
+                    margin-left: 5vw;
                   }
                 }
 
                 @media screen and (max-width: 540px) {
                   .m-icon-wrapper {
-                    margin-left : 2vw;
+                    margin-left: 2vw;
                   }
                 }
 
                 @media screen and (max-width: 475px) {
                   .profilePic {
-                    margin-left : 3vw;
+                    margin-left: 3vw;
                   }
                 }
 
                 @media screen and (max-width: 455px) {
                   .m-icon {
-                    zoom : 2;
+                    zoom: 2;
                   }
 
                   .m-icon-wrapper {
-                    margin-top : 8px;
+                    margin-top: 8px;
                   }
 
                   .profilePic {
-                    height : 50px;
-                    width : 50px;
+                    height: 50px;
+                    width: 50px;
                   }
 
                   .logoText {
-                    font-size : 2em;
+                    font-size: 2em;
                   }
 
                   .main {
-                      margin-top : 10px;
+                    margin-top: 10px;
                   }
                 }
 
                 @media screen and (max-width: 384px) {
                   .m-icon {
-                    zoom : 1.7;
+                    zoom: 1.7;
                   }
                 }
 
                 @media screen and (max-width: 354px) {
                   .logoText {
-                    margin-left : 1vw;
+                    margin-left: 1vw;
                   }
                 }
 
                 @media screen and (max-width: 344px) {
                   .m-icon {
-                    zoom : 1.4;
+                    zoom: 1.4;
                   }
+                }
+
+                /* Ha ha default styles of course NOTHING can go wrong*/
+                a {
+                  color : black;
                 }
               `}
             </style>
