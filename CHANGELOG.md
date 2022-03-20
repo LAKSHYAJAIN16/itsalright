@@ -21,3 +21,5 @@ March 2 : Another Big Sheesh. 4 days no programming. Exams from the 5th. Just so
 March 18 : That's right, I'm back BOIS! EXAMS OVER. 5 HOURS A DAY FROM NOW ON. TONS OF PROGRESS TODAY. Added delete functionality, share and home pages are now partially responsive. The gameplan for tommorow is to get the domain up and running. LES GO BOIZ!
 
 March 19 Commit 1 : 12/24 done. Most Pages are done. Just gotta make it responsive now. LES GO. Probably one more commit today. PEACE OUT!
+
+March 20 : [itsalright](https://www.itsalright.in/home) is out in BETA! Still lotta bugs, still really glitchy but domains and SSL are done BABY! Maybe one more commit today? Idk man honestly. BUT PROGRESS IS GOOD today. Still a bit behind schedule but am gonna grind. PEACE OUT!

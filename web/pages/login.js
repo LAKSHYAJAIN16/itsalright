@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import Head from "next/Head";
+import Head from "next/head";
 import { FacebookAuthProvider, signInWithPopup } from "firebase/auth";
 
 import { fauth } from "../lib/firebase";

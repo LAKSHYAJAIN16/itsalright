@@ -280,8 +280,8 @@ export async function getServerSideProps(context) {
   const id = context.query.id;
 
   try {
-    //Call Backend (temporary with the localhost thing)
-    const res = await axios.get("http://localhost:1696/api/specifics/" + id);
+    //Call Backend
+    const res = await axios.get("http://www.itsalright.in/api/specifics/" + id);
     const data = res.data.data;
     if (data === undefined) {
       return {

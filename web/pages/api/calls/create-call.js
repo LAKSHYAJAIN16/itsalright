@@ -17,8 +17,8 @@ export default async function handler(req, res) {
     const callID = genID(20);
 
     //Get URLs
-    const userUrl = `http://localhost:1696/connect-rts/v2/zorbit?v=${callID}&b=true`;
-    const expertUrl = `http://localhost:1696/connect-rts/v2/aorbit?v=${callID}&b=true`;
+    const userUrl = `http://itsalright.in/connect-rts/v2/zorbit?v=${callID}&b=true`;
+    const expertUrl = `http://itsalright.in/connect-rts/v2/aorbit?v=${callID}&b=true`;
 
     //Create call with no expert
     await setDoc(doc(db, "available-calls", callID), {
