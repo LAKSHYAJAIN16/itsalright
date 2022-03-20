@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
 import Procrastinator from "../components/Procrastinator";
+import DangerModal from "../components/DangerModal";
 import Navbar from "../components/Navbar";
 
 export default function UserSettings() {
@@ -26,16 +27,15 @@ export default function UserSettings() {
   const [rAPIKey, setRAPIKey] = useState(false);
   const [rOAuthKey, setROAuthKey] = useState(false);
 
+  //Modal States
+  const [isSignOut, setIsSignOut] = useState(false);
+  const [isDel, setIsDel] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     setD(JSON.parse(localStorage.getItem("user") || ""));
     setPass(true);
   }, []);
-
-  const logout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("logged");
-    window.location.replace("/home");
-  };
 
   const scrollT = (ref) => {
     ref.current.scrollIntoView();
@@ -182,9 +182,49 @@ export default function UserSettings() {
     window.location.reload();
   };
 
+  const closeModalFNForCallback = () => {
+    setShowModal(false);
+    setIsDel(false);
+    setIsSignOut(false);
+  };
+
+  //Buffer FNS for modal
+  const modalSignOut = () => {
+    setIsSignOut(true);
+    setShowModal(true);
+  };
+
+  const modalDel = () => {
+    setIsDel(true);
+    setShowModal(true);
+  };
+
   return (
     <>
       <Navbar />
+      {showModal ? (
+        <>
+          {isSignOut && (
+            <DangerModal
+              text={"you will be signed out from this device"}
+              closeFN={closeModalFNForCallback}
+              nextFN={signout}
+            />
+          )}
+
+          {isDel && (
+            <DangerModal
+              text={
+                "all of your posts, comments, and user data will be deleted forever"
+              }
+              closeFN={closeModalFNForCallback}
+              nextFN={delAccount}
+            />
+          )}
+        </>
+      ) : (
+        <></>
+      )}
       <div className="content">
         {pass === false ? (
           <>
@@ -888,7 +928,7 @@ export default function UserSettings() {
                         marginLeft: "100px",
                         marginTop: "10px",
                       }}
-                      onClick={() => delAccount()}
+                      onClick={() => modalDel()}
                     >
                       Delete Account
                     </button>
@@ -909,7 +949,7 @@ export default function UserSettings() {
                         marginLeft: "100px",
                         marginTop: "10px",
                       }}
-                      onClick={() => signout()}
+                      onClick={() => modalSignOut()}
                     >
                       Signout
                     </button>
@@ -1063,57 +1103,57 @@ export default function UserSettings() {
             width: 160px;
           }
 
-          @media screen and (max-width : 1025px) {
+          @media screen and (max-width: 1025px) {
             .sidebar {
-              display : none;
+              display: none;
             }
           }
 
-          @media screen and (max-width : 670px) {
+          @media screen and (max-width: 670px) {
             .settings {
-              margin-left : 50px;
+              margin-left: 50px;
             }
           }
 
-          @media screen and (max-width : 630px) {
+          @media screen and (max-width: 630px) {
             .settings {
-              margin-left : 20px;
+              margin-left: 20px;
             }
           }
 
-          @media screen and (max-width : 584px) {
+          @media screen and (max-width: 584px) {
             .settings {
-              zoom : 0.9;
+              zoom: 0.9;
             }
           }
 
-          @media screen and (max-width : 543px) {
+          @media screen and (max-width: 543px) {
             .settings {
-              zoom : 0.8;
+              zoom: 0.8;
             }
           }
 
-          @media screen and (max-width : 479px) {
+          @media screen and (max-width: 479px) {
             .settings {
-              zoom : 0.7;
+              zoom: 0.7;
             }
           }
 
-          @media screen and (max-width : 418px) {
+          @media screen and (max-width: 418px) {
             .settings {
-              zoom : 0.6;
+              zoom: 0.6;
             }
           }
 
-          @media screen and (max-width : 367px) {
+          @media screen and (max-width: 367px) {
             .settings {
-              zoom : 0.5;
+              zoom: 0.5;
             }
           }
 
-          @media screen and (max-width : 285px) {
+          @media screen and (max-width: 285px) {
             .settings {
-              zoom : 0.4;
+              zoom: 0.4;
             }
           }
         `}
