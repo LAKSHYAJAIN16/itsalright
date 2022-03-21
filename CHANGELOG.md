@@ -23,3 +23,5 @@ March 18 : That's right, I'm back BOIS! EXAMS OVER. 5 HOURS A DAY FROM NOW ON. T
 March 19 Commit 1 : 12/24 done. Most Pages are done. Just gotta make it responsive now. LES GO. Probably one more commit today. PEACE OUT!
 
 March 20 : [itsalright](https://www.itsalright.in/home) is out in BETA! Still lotta bugs, still really glitchy but domains and SSL are done BABY! Maybe one more commit today? Idk man honestly. BUT PROGRESS IS GOOD today. Still a bit behind schedule but am gonna grind. PEACE OUT!
+
+March 21 : BOIZ! Footer is done, PWA is done, Service worker is done. Tons of progress. bbye adios.

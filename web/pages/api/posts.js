@@ -18,15 +18,10 @@ export default async function handler(req, res) {
     });
 
     //Get All Documents
-    const all = [];
-    const allSnap = await getDocs(collection(db, "posts"));
-    allSnap.forEach((doc) => {
-      all.push(doc.data());
-    });
+    const all = unanswered;
 
     res.status(200).json({
         status : 200,
-        unanswered,
         all
     })
   }

@@ -19,25 +19,10 @@ export default function browse() {
         //Call Backend Endpoint
         const res = await axios.get("/api/posts");
 
-        //Set Unanswered
-        const unansweredBuffer = [];
-
-        //Remove Elements after 10
-        for (let i = 0; i < res.data.unanswered.length; i++) {
-          const question = res.data.unanswered[i];
-          i <= 8 && unansweredBuffer.push(question);
-        }
-
-        //Shuffle Array
-        const newShuffledUnanswered = shuffle(unansweredBuffer);
-
         //Shuffle All Array
         const shuffledAll = shuffle(res.data.all);
 
-        //Create new Array
-        const newArray = [...newShuffledUnanswered, ...shuffledAll];
-
-        setPosts(removeDuplicates(newArray));
+        setPosts(removeDuplicates(shuffledAll));
         setRetrieved(true);
       }
     };

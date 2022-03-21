@@ -7,7 +7,7 @@ export default function DangerModal({ text, nextFN, closeFN }) {
         <h1 style={{ color: "red" }}>You Sure about that?</h1>
         <br />
         <p style={{ padding: "10px 10px 10px 10px", textAlign: "center" }}>
-          Not to be dramatic or anything, but if you click this, ,{" "}
+          Not to be dramatic or anything, but if you click this, {" "}
           <b>{text}.</b>
         </p>
         <br />
