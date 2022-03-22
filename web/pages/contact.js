@@ -74,7 +74,9 @@ export default function contact() {
             <>
               <div className="searchResults">
                 {results.map((value, idx) => (
-                  <Expert key={idx} user={value} />
+                  <>
+                    <Expert key={idx} user={value} />
+                  </>
                 ))}
               </div>
             </>
@@ -134,6 +136,40 @@ export default function contact() {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+          }
+
+          @media screen and (max-width : 656px) {
+            .searchBox {
+              zoom : 0.7;
+            }
+          }
+
+          @media screen and (max-width : 435px) {
+            .searchBox {
+              zoom : 0.6;
+            }
+          }
+
+          @media screen and (max-width : 383px) {
+            .searchBox {
+              zoom : 0.5;
+            }
+
+            .desc {
+              zoom : 0.9;
+            }
+          }
+
+          @media screen and (max-width : 312px) {
+            .header {
+              zoom : 0.9;
+            }
+          }
+
+          @media screen and (max-width : 300px) {
+            .searchBox {
+              zoom : 0.4;
+            }
           }
         `}
       </style>

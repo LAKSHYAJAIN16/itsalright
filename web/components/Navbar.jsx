@@ -71,7 +71,7 @@ export default function Navbar() {
                 <>
                   <div className="m-icons">
                     {/* Icon 1 : Browse*/}
-                    <a href="/Browse">
+                    <a href="/browse">
                       <div className="m-icon-wrapper">
                         <OverlayTrigger
                           placement="bottom"

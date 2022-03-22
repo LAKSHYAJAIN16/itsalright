@@ -91,6 +91,11 @@ export default function Footer() {
             <div
               className="donate redButton"
               style={{ marginTop: "-10px", paddingTop: "10px" }}
+              onClick={() =>
+                window.location.replace(
+                  "https://www.youtube.com/watch?v=xvFZjo5PgG0"
+                )
+              }
             >
               Donate ❤️
             </div>
@@ -157,8 +162,74 @@ export default function Footer() {
           .donate {
             margin-left: 200px;
           }
+
           h3 {
             zoom: 0.8;
+          }
+
+          @media screen and (max-width : 910px) {
+            .main {
+              zoom : 0.6;
+            }
+
+            .sub-footer {
+              zoom : 0.9;
+            }
+          }
+
+          @media screen and (max-width : 782px) {
+            .main {
+              zoom : 0.5;
+            }
+
+            .sub-footer {
+              zoom : 0.8;
+            }
+          }
+
+          @media screen and (max-width : 691px) {
+            .main {
+              zoom : 0.4;
+            }
+
+            .sub-footer {
+              zoom : 0.7;
+            }
+          }
+
+          @media screen and (max-width : 605px) {
+            .main {
+              zoom : 0.35;
+            }
+
+            .sub-footer {
+              zoom : 0.6;
+            }
+          }
+
+          @media screen and (max-width : 528px) {
+            .main {
+              flex-wrap : wrap;
+              justify-content : space-evenly;
+              zoom : 0.7;
+            }
+
+            .column {
+              margin-bottom : 30px;
+              margin-right : 0px;
+            }
+
+            .sub-footer {
+              margin-top : -10px;
+            }
+
+            .donate {
+              display : none;
+            }
+
+            .status {
+              display : none; 
+            }
           }
         `}
       </style>

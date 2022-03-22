@@ -4,6 +4,7 @@ import axios from "axios";
 import Procrastinator from "../components/Procrastinator";
 import DangerModal from "../components/DangerModal";
 import Navbar from "../components/Navbar";
+import Meta from "../components/Meta";
 
 export default function UserSettings() {
   //UI variables
@@ -202,6 +203,7 @@ export default function UserSettings() {
   return (
     <>
       <Navbar />
+      <Meta title={"User Settings"} desc={"Change Settings"} />
       {showModal ? (
         <>
           {isSignOut && (

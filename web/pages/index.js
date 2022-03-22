@@ -8,7 +8,7 @@ export default function HomeSomething() {
       JSON.parse(localStorage.getItem("logged") || "false") || false;
     if (loggedIn) {
       //Redirect to browse
-      window.location.replace("/browse");
+      window.location.replace("/home");
     } else {
       //For now, redirect to home page
       window.location.replace("/home");
