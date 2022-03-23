@@ -286,6 +286,10 @@ export default function Navbar() {
                   .profilePic {
                     margin-left: 5vw;
                   }
+
+                  .expert {
+                    display : none;
+                  }
                 }
 
                 @media screen and (max-width: 961px) {

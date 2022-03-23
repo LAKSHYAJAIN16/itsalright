@@ -225,9 +225,14 @@ export default function MessagesPage() {
             .main {
               display: flex;
             }
+
             .chats {
               margin-left: 50px;
               width: 400px;
+            }
+
+            .chatArea {
+          
             }
 
             .activeChats {
@@ -265,6 +270,37 @@ export default function MessagesPage() {
               padding-bottom: 2px;
               margin-left: 20px;
               border-radius: 500px;
+            }
+
+            /* HA HA RESPONSIVENESS*/
+            @media screen and (max-width : 1106px) {
+              .chatArea {
+                zoom : 0.9;
+              }
+            }
+
+            @media screen and (max-width : 1080px) {
+              .chatArea {
+                margin-left : -20px;
+              }
+            }
+
+            @media screen and (max-width : 1061px) {
+              .chatArea {
+                margin-left : -40px;
+              }
+            }
+
+            @media screen and (max-width : 1042px) {
+              .chatArea {
+                margin-left : -80px;
+              }
+            }
+
+            @media screen and (max-width : 1007px) {
+              .chatArea {
+                margin-left : -100px;
+              }
             }
           `}
         </style>
