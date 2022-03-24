@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import sleep from "../../lib/sleep";
 import ExpertChat from "../../components/ExpertChat";
 import Navbar from "../../components/Navbar";
+import Meta from "../../components/Meta";
 import Procrastinator from "../../components/Procrastinator";
 
 export default function MessagesPage() {
@@ -102,7 +103,7 @@ export default function MessagesPage() {
           initiateBackendSocket();
           loadMSGS();
 
-          if(renderQue === val.unSeenMessages){
+          if (renderQue === val.unSeenMessages) {
             reloadMSGS();
             val.unSeenMessages = 0;
           }
@@ -137,15 +138,13 @@ export default function MessagesPage() {
                 </>
               ) : (
                 <>
-                  <p>Works</p>
+                  <p>Loading</p>
                 </>
               )}
             </p>
 
             <p className="content">
-              <span>
-                {val.messages[val.messages.length - 1].message.content}
-              </span>
+              {val.messages[val.messages.length - 1].message.content}
             </p>
           </div>
         </div>
@@ -158,6 +157,7 @@ export default function MessagesPage() {
               height: 70px;
               margin-top: 10px;
               cursor: pointer;
+              overflow-x: none;
             }
 
             .pic {
@@ -172,6 +172,9 @@ export default function MessagesPage() {
 
             .content {
               color: grey;
+              overflow-x: none;
+              white-space: nowrap;
+              text-overflow: ellipsis;
             }
 
             .unseen {
@@ -196,8 +199,9 @@ export default function MessagesPage() {
           href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
           rel="stylesheet"
         ></link>
-        <title>Your Messages</title>
       </Head>
+
+      <Meta title={"Your Messages"} desc={"Answer messages sent by users"} />
 
       <div className="bg" style={{ minHeight: "100vh" }}>
         <Navbar />
@@ -232,7 +236,6 @@ export default function MessagesPage() {
             }
 
             .chatArea {
-          
             }
 
             .activeChats {
@@ -240,66 +243,88 @@ export default function MessagesPage() {
               font-weight: 500;
             }
 
-            .singleChat {
-              display: flex;
-              align-items: center;
-              height: 70px;
-              margin-top: 10px;
-              cursor: pointer;
-            }
-
-            .pic {
-              width: 50px;
-              height: 50px;
-              border-radius: 50%;
-            }
-
-            .right-content {
-              margin-left: 14px;
-            }
-
-            .content {
-              color: grey;
-            }
-
-            .unseen {
-              color: white;
-              background-color: green;
-              padding-left: 5px;
-              padding-right: 7px;
-              padding-bottom: 2px;
-              margin-left: 20px;
-              border-radius: 500px;
-            }
-
             /* HA HA RESPONSIVENESS*/
-            @media screen and (max-width : 1106px) {
+            @media screen and (max-width: 1106px) {
               .chatArea {
-                zoom : 0.9;
+                zoom: 0.9;
               }
             }
 
-            @media screen and (max-width : 1080px) {
+            @media screen and (max-width: 1080px) {
               .chatArea {
-                margin-left : -20px;
+                margin-left: -20px;
               }
             }
 
-            @media screen and (max-width : 1061px) {
+            @media screen and (max-width: 1061px) {
               .chatArea {
-                margin-left : -40px;
+                margin-left: -40px;
               }
             }
 
-            @media screen and (max-width : 1042px) {
+            @media screen and (max-width: 1042px) {
               .chatArea {
-                margin-left : -80px;
+                margin-left: -80px;
               }
             }
 
-            @media screen and (max-width : 1007px) {
+            @media screen and (max-width: 1007px) {
               .chatArea {
-                margin-left : -100px;
+                margin-left: -100px;
+              }
+            }
+
+            @media screen and (max-width: 796px) {
+              .chatArea {
+                zoom: 0.8;
+              }
+            }
+
+            @media screen and (max-width: 690px) {
+              .chats {
+                margin-left: 20px;
+              }
+            }
+
+            @media screen and (max-width: 659px) {
+              .chats {
+                zoom: 0.8;
+              }
+            }
+
+            @media screen and (max-width: 627px) {
+              .chatArea {
+                zoom: 0.7;
+              }
+            }
+
+            @media screen and (max-width: 563px) {
+              .chatArea {
+                zoom: 0.6;
+              }
+            }
+
+            @media screen and (max-width: 513px) {
+              .chatArea {
+                zoom: 0.5;
+              }
+            }
+
+            @media screen and (max-width: 445px) {
+              .chats {
+                zoom: 0.7;
+              }
+            }
+
+            @media screen and (max-width: 426px) {
+              .chats {
+                margin-left: 4px;
+              }
+            }
+
+            @media screen and (max-width: 413px) {
+              .chats {
+                zoom: 0.6;
               }
             }
           `}

@@ -179,11 +179,6 @@ export default function Navbar() {
                           Messages
                         </p>
                       </a>
-                      <a href="/expert/leaderboard">
-                        <p className="navOption" style={{ zoom: 0.93 }}>
-                          Leaderboard
-                        </p>
-                      </a>
                     </>
                   ) : (
                     <>

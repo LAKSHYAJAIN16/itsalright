@@ -4,6 +4,7 @@ import Head from "next/head";
 import { FacebookAuthProvider, signInWithPopup } from "firebase/auth";
 
 import { fauth } from "../lib/firebase";
+import Meta from "../components/Meta";
 import Navbar from "../components/Navbar";
 
 export default function Login() {
@@ -96,12 +97,12 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Login</title>
         <link
           href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
           rel="stylesheet"
         />
       </Head>
+      <Meta title={"Login"} desc={"Login to Itsalright"} />
       <div className="main">
         <Navbar />
         <div className="center">
@@ -254,6 +255,24 @@ export default function Login() {
 
           .or {
             text-align: center;
+          }
+
+          @media screen and (max-width : 448px) {
+            .center {
+              zoom : 0.9;
+            }
+          }
+
+          @media screen and (max-width : 407px) {
+            .center {
+              zoom : 0.8;
+            }
+          }
+
+          @media screen and (max-width : 326px) {
+            .center {
+              zoom : 0.7;
+            }
           }
         `}
       </style>
