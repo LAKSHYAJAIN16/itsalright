@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Toast from "react-bootstrap/Toast";
 import Head from "next/head";
 import { collection, onSnapshot } from "firebase/firestore";
+import Cookies from 'js-cookie'
 
 import NotificationManager from "../lib/NotificationManager";
 import { db } from "../lib/firebase";
@@ -24,9 +25,11 @@ export default function Notifications() {
   useEffect(() => {
     NotificationManager.register(add, sub);
 
+    const p = JSON.parse(Cookies.get("_iCS_NOT") || "[]") || [];
+    console.log(p);
+
     try {
       const user = JSON.parse(localStorage.getItem("user") || "").isExpert;
-      console.log(user);
       if (user === true) {
         //Register Snap Listner
         const snapListner = onSnapshot(
@@ -38,14 +41,18 @@ export default function Notifications() {
                 change.type === "added" &&
                 change.doc.data().assigned === false
               ) {
-                NotificationManager.addNotification(
-                  `${
-                    change.doc.data().creator.name
-                  } wants to connect with you! Go to the Connect Panel and check it out!`,
-                  "Someone wants to connect with you",
-                  "blue"
-                );
-              }
+                if(p.includes(change.doc.data().id) === false){
+                  NotificationManager.addNotification(
+                    `${
+                      change.doc.data().creator.name
+                    } wants to connect with you! Go to the Connect Panel and check it out!`,
+                    "Someone wants to connect with you",
+                    "blue"
+                  );
+                  p.push(change.doc.data().id);
+                  Cookies.set("_iCS_NOT", JSON.stringify(p))
+                }
+                }
             });
           }
         );

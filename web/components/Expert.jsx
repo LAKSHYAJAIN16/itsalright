@@ -1,15 +1,16 @@
 import React from "react";
+import Link from "next/link";
 
 export default function Expert({ user }) {
   return (
-    <>
-      <a href={`/chat/${user.id}`}>
+    <div style={{ cursor: "pointer" }}>
+      <Link href={`/chat/${user.id}`}>
         <div className="card">
           <img src={user.profilePic} className="profilePic"></img>
           <p className="name">{user.name}</p>
           <p className="desc">{user.expertData.bio}</p>
         </div>
-      </a>
+      </Link>
       <style jsx>
         {`
           .card {
@@ -35,23 +36,23 @@ export default function Expert({ user }) {
           }
 
           .profilePic {
-            height : 100px;
-            width : 100px;
-            border-radius : 50%;
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
           }
 
           .name {
-            margin-top : 7px;
+            margin-top: 7px;
           }
 
           .desc {
-            margin-top : 5px;
-            zoom : 0.6;
-            color : grey;
-            text-align : center;
+            margin-top: 5px;
+            zoom: 0.6;
+            color: grey;
+            text-align: center;
           }
         `}
       </style>
-    </>
+    </div>
   );
 }

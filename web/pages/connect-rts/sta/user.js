@@ -10,8 +10,8 @@ export default function user() {
     //Send Create Call Request
     const payload = {
       user: JSON.parse(localStorage.getItem("user") || ""),
-      title : "test suckas",
-      desc : "i like pasta clowns"
+      title : "Someone Wants Advice",
+      desc : "Are You Up to the Task?"
     };
 
     //Get Response

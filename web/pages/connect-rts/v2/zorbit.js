@@ -199,7 +199,7 @@ export default function Room() {
             {rC === true && (
               <div>
                 <video ref={remote} className={styles.vid}></video>
-                <p style={{ textAlign: "center" }}>User</p>
+                <p style={{ textAlign: "center" }}>Expert</p>
               </div>
             )}
           </div>
@@ -207,7 +207,7 @@ export default function Room() {
           {rC === false && (
             <>
               <Procrastinator />
-              <p style={{ textAlign: "center" }}>Waiting for User</p>
+              <p style={{ textAlign: "center" }}>Waiting for Expert</p>
             </>
           )}
           <div style={{ display: "flex", justifyContent: "center" }}>
