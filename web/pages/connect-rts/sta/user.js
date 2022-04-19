@@ -7,18 +7,24 @@ import Procrastinator from "../../../components/Procrastinator";
 
 export default function user() {
   useEffect(async () => {
-    //Send Create Call Request
-    const payload = {
-      user: JSON.parse(localStorage.getItem("user") || ""),
-      title : "Someone Wants Advice",
-      desc : "Are You Up to the Task?"
-    };
+    //First Check if we are signed in
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      window.location.replace("/login");
+    } else if (user) {
+      //Send Create Call Request
+      const payload = {
+        user: JSON.parse(localStorage.getItem("user") || ""),
+        title: "Someone Wants Advice",
+        desc: "Are You Up to the Task?",
+      };
 
-    //Get Response
-    const res = await axios.post("/api/calls/create-call", payload);
+      //Get Response
+      const res = await axios.post("/api/calls/create-call", payload);
 
-    //Redirect
-    window.location.replace(res.data.url);
+      //Redirect
+      window.location.replace(res.data.url);
+    }
   }, []);
 
   return (

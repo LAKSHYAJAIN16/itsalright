@@ -20,31 +20,40 @@ export default function expert() {
   const [calls, setCalls] = useState([]);
 
   useEffect(async () => {
-    //Get all available calls
-    const q = query(
-      collection(db, "available-calls"),
-      where("assigned", "==", false)
-    );
-    const avcalls = await getDocs(q);
+    //First Check if we are signed in
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      window.location.replace("/login");
+    } else if (user) {
+      //Get all available calls
+      const q = query(
+        collection(db, "available-calls"),
+        where("assigned", "==", false)
+      );
+      const avcalls = await getDocs(q);
 
-    //Get that Data
-    const temp_av_calls = [];
-    avcalls.docs.forEach((document) => {
-      temp_av_calls.push(document.data());
-    });
-    setCalls(temp_av_calls);
-
-    //Register Snapshot listener so we can change in realtime
-    const snapListner = onSnapshot(collection(db, "available-calls"), (col) => {
-      //Set Available Calls
-      const newCalls = [];
-      col.docs.forEach((document) => {
-        if (document.data().assigned === false) {
-          newCalls.push(document.data());
-        }
+      //Get that Data
+      const temp_av_calls = [];
+      avcalls.docs.forEach((document) => {
+        temp_av_calls.push(document.data());
       });
-      setCalls(newCalls);
-    });
+      setCalls(temp_av_calls);
+
+      //Register Snapshot listener so we can change in realtime
+      const snapListner = onSnapshot(
+        collection(db, "available-calls"),
+        (col) => {
+          //Set Available Calls
+          const newCalls = [];
+          col.docs.forEach((document) => {
+            if (document.data().assigned === false) {
+              newCalls.push(document.data());
+            }
+          });
+          setCalls(newCalls);
+        }
+      );
+    }
   }, []);
 
   const join = async (id, callback) => {

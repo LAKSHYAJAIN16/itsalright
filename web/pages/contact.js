@@ -13,14 +13,20 @@ export default function contact() {
   const [renderResults, setRenderResults] = useState(false);
 
   useEffect(async () => {
-    setRenderResults(false);
+    //First Check if we are signed in
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      window.location.replace("/login");
+    } else if (user) {
+      setRenderResults(false);
 
-    //Get The Experts
-    const res = await axios.get("/api/contact/randomUsers");
-    setResults(res.data.data);
-    setUsers(res.data.data);
+      //Get The Experts
+      const res = await axios.get("/api/contact/randomUsers");
+      setResults(res.data.data);
+      setUsers(res.data.data);
 
-    setRenderResults(true);
+      setRenderResults(true);
+    }
   }, []);
 
   const filter = (searchTerm) => {
@@ -138,37 +144,37 @@ export default function contact() {
             flex-wrap: wrap;
           }
 
-          @media screen and (max-width : 656px) {
+          @media screen and (max-width: 656px) {
             .searchBox {
-              zoom : 0.7;
+              zoom: 0.7;
             }
           }
 
-          @media screen and (max-width : 435px) {
+          @media screen and (max-width: 435px) {
             .searchBox {
-              zoom : 0.6;
+              zoom: 0.6;
             }
           }
 
-          @media screen and (max-width : 383px) {
+          @media screen and (max-width: 383px) {
             .searchBox {
-              zoom : 0.5;
+              zoom: 0.5;
             }
 
             .desc {
-              zoom : 0.9;
+              zoom: 0.9;
             }
           }
 
-          @media screen and (max-width : 312px) {
+          @media screen and (max-width: 312px) {
             .header {
-              zoom : 0.9;
+              zoom: 0.9;
             }
           }
 
-          @media screen and (max-width : 300px) {
+          @media screen and (max-width: 300px) {
             .searchBox {
-              zoom : 0.4;
+              zoom: 0.4;
             }
           }
         `}

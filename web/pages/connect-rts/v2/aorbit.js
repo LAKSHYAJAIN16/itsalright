@@ -168,7 +168,13 @@ export default function AnswerRoom() {
       console.log(callCandidates);
     };
 
-    act();
+    //First Check if we are signed in
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      window.location.replace("/login");
+    } else if (user) {
+      act();
+    }
   }, []);
 
   const endCall = async () => {
@@ -220,7 +226,7 @@ export default function AnswerRoom() {
       )}
       {ui === 1 && (
         <div className={styles.discMain}>
-          <img src="/ended.gif" className={styles.discImage}></img>
+          <img src="/thanks.gif" className={styles.discImage}></img>
           <br />
           <h1>Call Ended</h1>
           <br />

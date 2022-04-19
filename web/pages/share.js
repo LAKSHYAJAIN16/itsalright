@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Head from "next/head";
 import Toggle from "react-toggle";
@@ -21,6 +21,16 @@ export default function share() {
   //UI States
   const [ui, setUI] = useState(0);
   const titleInput = useRef();
+
+  useEffect(() => {
+    //First Check if we are signed in
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      window.location.replace("/login");
+    } else if (user) {
+      //HOLA!
+    }
+  }, []);
 
   const nextCallbackContent = (draft) => {
     setContent(draft);
@@ -246,15 +256,15 @@ export default function share() {
             font-size: 0.8em;
           }
 
-          @media screen and (max-width : 907px) {
+          @media screen and (max-width: 907px) {
             .warning {
-              padding-left : 10px;
+              padding-left: 10px;
             }
           }
 
-          @media screen and (max-width : 778px) {
+          @media screen and (max-width: 778px) {
             .stepBuf {
-              padding-left : 10px;
+              padding-left: 10px;
             }
           }
         `}

@@ -10,14 +10,25 @@ export default function CommentSection({ comments, user, postID }) {
   const [renderComments, setRenderComments] = useState(false);
   const [realComments, setRealComments] = useState([]);
   const [filteredComments, setFilteredComments] = useState([]);
+  const [signedIN, setSignedIN] = useState(false);
   const [userID, setUserID] = useState("");
 
   useEffect(() => {
+    //Initial
     setRenderComments(false);
     setRealComments(comments);
     setFilteredComments(comments);
-    setUserID(JSON.parse(localStorage.getItem("user")).id);
-    setRenderComments(true);
+
+    //First Check if we are signed in
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      setSignedIN(false);
+      setRenderComments(true);
+    } else if (user) {
+      setSignedIN(true);
+      setUserID(JSON.parse(localStorage.getItem("user")).id);
+      setRenderComments(true);
+    }
   }, []);
 
   const submit = async () => {
@@ -124,6 +135,125 @@ export default function CommentSection({ comments, user, postID }) {
           <div className="buttons">
             <button className="cancelButton">Cancel</button>
             <button className="submitButton" onClick={() => submit()}>
+              Comment
+            </button>
+          </div>
+        </div>
+
+        <style jsx>
+          {`
+            .commentInputMain {
+              margin-left: 50px;
+              margin-top: -10px;
+              display: flex;
+              align-items: center;
+            }
+
+            .profilePic {
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+            }
+
+            .commentInputField {
+              margin-top: -20px;
+              margin-left: 20px;
+              width: 700px;
+              color: black;
+              font-family: var(--mainfont);
+              background-color: transparent;
+              background-image: linear-gradient(gray, gray);
+              background-size: 10% 3px;
+              background-repeat: no-repeat;
+              background-position: center 110%;
+              border: none;
+              outline: none;
+              transition: all 0.3s ease;
+              z-index: 69;
+            }
+
+            .commentInputField:focus {
+              background-image: linear-gradient(black, white);
+              background-size: 100% 3px;
+            }
+
+            .buttons {
+              display: flex;
+              align-items: center;
+              margin-top: 50px;
+              margin-left: -160px;
+            }
+
+            .cancelButton {
+              border: none;
+              background-color: transparent;
+              font-size: 0.8em;
+              font-family: var(--mainfont);
+            }
+
+            .submitButton {
+              width: 100px;
+              height: 45px;
+              font-size: 16px;
+              font-weight: 600;
+              font-family: var(--mainfont);
+              color: #fff;
+              cursor: pointer;
+              margin: 20px;
+              text-align: center;
+              border: none;
+              background-size: 300% 100%;
+              border-radius: 50px;
+              background-image: linear-gradient(
+                to right,
+                #25aae1,
+                #4481eb,
+                #04befe,
+                #3f86ed
+              );
+              box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+              -o-transition: all 0.4s ease-in-out;
+              -webkit-transition: all 0.4s ease-in-out;
+              transition: all 0.4s ease-in-out;
+              zoom: 0.85;
+            }
+
+            .submitButton:hover {
+              background-position: 100% 0;
+              -o-transition: all 0.4s ease-in-out;
+              -webkit-transition: all 0.4s ease-in-out;
+              transition: all 0.4s ease-in-out;
+            }
+          `}
+        </style>
+      </>
+    );
+  };
+
+  //No User Comment Input
+  const NoUserCommentInput = () => {
+    return (
+      <>
+        <div className="commentInputMain">
+          <img
+            src="https://images.macrumors.com/t/XjzsIpBxeGphVqiWDqCzjDgY4Ck=/800x0/article-new/2019/04/guest-user-250x250.jpg?lossy"
+            alt="profile_pic"
+            aria-label="profile_pic"
+            className="profilePic"
+          ></img>
+          <input
+            placeholder="Add a Comment..."
+            className="commentInputField"
+            id="commentText"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                window.location.replace("/login");
+              }
+            }}
+          />
+          <div className="buttons">
+            <button className="cancelButton">Cancel</button>
+            <button className="submitButton" onClick={() => window.location.replace("/login")}>
               Comment
             </button>
           </div>
@@ -583,7 +713,7 @@ export default function CommentSection({ comments, user, postID }) {
               </Dropdown.Menu>
             </Dropdown>
           </div>
-          <CommentInput />
+          {signedIN ? <CommentInput /> : <NoUserCommentInput />}
           {filteredComments.map((comment, index) => (
             <>
               <Comment comment={comment} key={index} />

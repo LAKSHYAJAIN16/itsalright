@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import axios from "axios";
 
@@ -7,6 +7,14 @@ import Chat from "../../components/Chat";
 import Navbar from "../../components/Navbar";
 
 export default function ChatRoom(context) {
+  useEffect(() => {
+    //First Check if we are signed in
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      window.location.replace("/login");
+    }
+  }, []);
+
   return (
     <>
       <Head>
@@ -21,6 +29,7 @@ export default function ChatRoom(context) {
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <div className="bg" style={{ minHeight: "100vh" }}>
         <Navbar />
         <div className="main">
@@ -205,8 +214,8 @@ export async function getServerSideProps(context) {
   const id = context.query.id;
 
   try {
-    //Call Backend (temporary with the localhost thing)
-    const res = await axios.get("http://localhost:1696/api/user/" + id);
+    //Call Backend
+    const res = await axios.get("http://itsalright.in/api/user/" + id);
     const data = res.data.data;
     if (data === undefined) {
       return {

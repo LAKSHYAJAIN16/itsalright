@@ -141,6 +141,7 @@ export default function Navbar() {
                       </div>
                     </a>
                   </div>
+
                   <div className="profilePic">
                     {logged ? (
                       <>
@@ -151,7 +152,7 @@ export default function Navbar() {
                     ) : (
                       <a href="/login">
                         <button
-                          className="standardButton"
+                          className="standardButton log"
                           style={{ marginLeft: "20px" }}
                         >
                           Login
@@ -206,7 +207,7 @@ export default function Navbar() {
                   ) : (
                     <a href="/login">
                       <button
-                        className="standardButton"
+                        className="standardButton log"
                         style={{ marginLeft: "20px" }}
                       >
                         Login
@@ -246,6 +247,10 @@ export default function Navbar() {
 
                 .navOption:hover {
                   color: black;
+                }
+
+                .log {
+                  /* EMPTY CSS THANKS TIM */
                 }
 
                 .profilePic {
@@ -312,6 +317,10 @@ export default function Navbar() {
                   .profilePic {
                     margin-left: 5vw;
                   }
+
+                  .log {
+                    margin-top : 10px;
+                  }
                 }
 
                 @media screen and (max-width: 540px) {
@@ -353,6 +362,10 @@ export default function Navbar() {
                   .m-icon {
                     zoom: 1.7;
                   }
+
+                  .log {
+                    display : none;
+                  }
                 }
 
                 @media screen and (max-width: 354px) {
@@ -376,6 +389,7 @@ export default function Navbar() {
           </>
         )}
       </div>
+      
       <br />
       <br />
       <br />

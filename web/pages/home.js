@@ -4,6 +4,7 @@ import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "../styles/Home.module.css";
+import Keys from "../keys.json";
 
 export default function Home() {
   const [display2, setDisplay2] = useState(false);
@@ -12,30 +13,39 @@ export default function Home() {
   const [display5, setDisplay5] = useState(false);
 
   useEffect(() => {
-    //We Only want the effect on desktops
-    var is_mobile =
-      !!navigator.userAgent.match(/iphone|android|blackberry/gi) || false;
-    if (is_mobile === false) {
-      let x = 0;
-      window.addEventListener("scroll", () => {
-        x += 10;
+    if (Keys.parallax === true) {
+      //We Only want the effect on desktops
+      var is_mobile =
+        !!navigator.userAgent.match(/iphone|android|blackberry/gi) || false;
+      if (is_mobile === false) {
+        let x = 0;
+        window.addEventListener("scroll", () => {
+          x += 10;
 
-        if (x > 30) {
-          setDisplay2(true);
-        }
-        if (x >= 380) {
-          setDisplay3(true);
-        }
+          if (x > 30) {
+            setDisplay2(true);
+          }
+          if (x >= 380) {
+            setDisplay3(true);
+          }
 
-        if (x >= 700) {
-          setDisplay4(true);
-        }
+          if (x >= 700) {
+            setDisplay4(true);
+          }
 
-        if (x >= 1000) {
-          setDisplay5(true);
-        }
-      });
-    } else if (is_mobile) {
+          if (x >= 1000) {
+            setDisplay5(true);
+          }
+        });
+      } else if (is_mobile) {
+        setDisplay2(true);
+        setDisplay3(true);
+        setDisplay4(true);
+        setDisplay5(true);
+      }
+    }
+
+    else {
       setDisplay2(true);
       setDisplay3(true);
       setDisplay4(true);
@@ -172,8 +182,7 @@ export default function Home() {
                 Here, we have over <b>1900</b> certified doctors, motivational
                 speakers, teachers and experts for any problem you may have.
                 Everyday these experts donate countless hours to help the
-                community. You can consult these experts{" "}
-                <b>free of cost</b> at{" "}
+                community. You can consult these experts <b>free of cost</b> at{" "}
                 <span className={styles.itsalrightspan}>itsalright</span>.
                 <br />
                 <br />

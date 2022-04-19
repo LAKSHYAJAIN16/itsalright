@@ -1,4 +1,5 @@
 {
     "GiphyAPIKEY" : "qRGVQg2xoXVbf7Bl1MObV2fLNu2QVXix",
-    "mobile-cutoff" : 660
+    "mobile-cutoff" : 660,
+    "parallax" : false
 }

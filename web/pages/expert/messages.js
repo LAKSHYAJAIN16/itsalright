@@ -15,6 +15,12 @@ export default function MessagesPage() {
   const [render, setRender] = useState(false);
 
   useEffect(async () => {
+    //First Check if we are signed in
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      window.location.replace("/login");
+    }
+
     //Backend
     const userID = JSON.parse(localStorage.getItem("user") || "").id;
     const res = await axios.post("/api/contact/expert-chats", {

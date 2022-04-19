@@ -13,27 +13,41 @@ export default function SinglePost(context) {
   const [hearts, setHearts] = useState([]);
   const [heartState, setHeartState] = useState(false);
   const [user, setUser] = useState({});
+  const [signed, setSigned] = useState(false);
 
   useEffect(() => {
     setHearts(context.props.hearts);
 
-    //Check if we've already hearted the post
-    const alreadyHearted = false;
-    const userID = JSON.parse(localStorage.getItem("user")).id;
-    for (let i = 0; i < context.props.hearts.length; i++) {
-      const heart = context.props.hearts[i];
-      if (heart.userID === userID) {
-        alreadyHearted = true;
-        break;
-      }
-    }
-    setHeartState(alreadyHearted);
+    //First Check if we are signed in
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      setHeartState(false);
+      setSigned(false);
+    } else if (user) {
+      setUser(JSON.parse(localStorage.getItem("user") || ""));
+      setSigned(true);
 
-    //Set User
-    setUser(JSON.parse(localStorage.getItem("user") || ""));
+      //Check if we've already hearted the post
+      const alreadyHearted = false;
+      const userID = JSON.parse(localStorage.getItem("user")).id;
+      for (let i = 0; i < context.props.hearts.length; i++) {
+        const heart = context.props.hearts[i];
+        if (heart.userID === userID) {
+          alreadyHearted = true;
+          break;
+        }
+      }
+
+      setHeartState(alreadyHearted);
+    }
   }, []);
 
   const heart = async () => {
+    if(signed === false){
+      alert("Sign In To Heart Post");
+      return;
+    }
+
     //Check heartState
     const targetHeartState = !heartState;
 
