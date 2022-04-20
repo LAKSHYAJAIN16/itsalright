@@ -13,6 +13,7 @@ import {
 import styles from "../../../styles/Connect.module.css";
 import { db } from "../../../lib/firebase";
 import genID from "../../../lib/genID";
+import NotificationManager from "../../../lib/NotificationManager";
 import Procrastinator from "../../../components/Procrastinator";
 import Navbar from "../../../components/Navbar";
 
@@ -56,6 +57,7 @@ export default function AnswerRoom() {
       //Open WebRTC connection
       let pc = new RTCPeerConnection(servers);
 
+      try{
       //Get the Local Stream and set it
       const localStream = await window.navigator.mediaDevices.getUserMedia({
         video: true,
@@ -166,6 +168,11 @@ export default function AnswerRoom() {
 
       console.log(rDoc.data());
       console.log(callCandidates);
+      }
+
+      catch(err){
+        window.location.replace(`/callbacks/something-went-wrong?n=${err.name}&d=${err.message}`);
+      }
     };
 
     //First Check if we are signed in

@@ -6,7 +6,8 @@ import Notifications from "../components/Notifications";
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Notifications />
+      {/* Disabling Notifications */}
+      {/* <Notifications /> */}
       <Component {...pageProps} />
     </>
   );

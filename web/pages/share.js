@@ -38,6 +38,11 @@ export default function share() {
   };
 
   const nextCallbackTitle = () => {
+    if(titleInput.current.value === ""){
+      alert("Blank Titles are Not Allowed");
+      return;
+    }
+
     setTitle(titleInput.current.value);
     setUI(2);
   };
@@ -133,7 +138,7 @@ export default function share() {
               <br />
 
               <div className="title">
-                <span style={{ marginRight: "10px" }}>Post Anonymously</span>
+                <span style={{ marginRight: "10px" }}>Keep Me Anonymous</span>
                 <Toggle
                   icons={false}
                   style={{ marginLeft: "30px" }}
@@ -168,17 +173,6 @@ export default function share() {
               </div>
               <br />
 
-              <br />
-              <br />
-
-              <p className="warning">
-                Warning : Our <a href="community">Moderators</a> are online 24/7
-                checking all posts. If your post is deemed unrelivant, you will
-                be banned and blacklisted from this website.
-                <br />
-                We take these drastic measures to keep this website's integrity
-                and to not encourage such activity in the near future.
-              </p>
               <button className="nextButton" onClick={() => submit()}>
                 Next
               </button>
