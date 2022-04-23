@@ -52,120 +52,126 @@ export default function Room() {
       };
 
       //Open WebRTC connection
-      let pc = new RTCPeerConnection(servers);
+      try {
+        let pc = new RTCPeerConnection(servers);
 
-      //Get the Local Stream and set it
-      const localStream = await window.navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true,
-      });
-      local.current.srcObject = localStream;
-      local.current.play();
-
-      //Assign the local Tracks to the webRTC connection
-      localStream.getTracks().forEach((track) => {
-        pc.addTrack(track, localStream);
-      });
-
-      //Listen to Document Updates
-      const sdpChange = onSnapshot(
-        doc(db, "calls", proxy),
-        async (document) => {
-          const source = document.metadata.hasPendingWrites
-            ? "Local"
-            : "Server";
-          if (document.exists()) {
-            if (source === "Server") {
-              //Get the Data
-              const data = document.data();
-
-              if (data.proxy === "ended") {
-                //End Call
-                setUi(1);
-
-                //Delete the document instances (or at least try to)
-                await deleteDoc(doc(db, "available-calls", proxy));
-                await deleteDoc(doc(db, "calls", proxy));
-              } else if (data.proxy !== "ended") {
-                //Get the Answer SDP
-                const answerSDP = data.answerSDP;
-                const remoteDescription = new RTCSessionDescription(answerSDP);
-                pc.setRemoteDescription(remoteDescription);
-
-                console.log("connected via answerSDP");
+        //Get the Local Stream and set it
+        const localStream = await window.navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true,
+        });
+        local.current.srcObject = localStream;
+        local.current.play();
+  
+        //Assign the local Tracks to the webRTC connection
+        localStream.getTracks().forEach((track) => {
+          pc.addTrack(track, localStream);
+        });
+  
+        //Listen to Document Updates
+        const sdpChange = onSnapshot(
+          doc(db, "calls", proxy),
+          async (document) => {
+            const source = document.metadata.hasPendingWrites
+              ? "Local"
+              : "Server";
+            if (document.exists()) {
+              if (source === "Server") {
+                //Get the Data
+                const data = document.data();
+  
+                if (data.proxy === "ended") {
+                  //End Call
+                  setUi(1);
+  
+                  //Delete the document instances (or at least try to)
+                  await deleteDoc(doc(db, "available-calls", proxy));
+                  await deleteDoc(doc(db, "calls", proxy));
+                } else if (data.proxy !== "ended") {
+                  //Get the Answer SDP
+                  const answerSDP = data.answerSDP;
+                  const remoteDescription = new RTCSessionDescription(answerSDP);
+                  pc.setRemoteDescription(remoteDescription);
+  
+                  console.log("connected via answerSDP");
+                }
               }
             }
           }
-        }
-      );
-
-      const iceChange = onSnapshot(
-        collection(db, "calls", proxy, "answerCandidates"),
-        (document) => {
-          document.docChanges().forEach((change) => {
-            if (change.type === "added") {
-              const candidate = new RTCIceCandidate(change.doc.data());
-              pc.addIceCandidate(candidate);
-            }
-          });
-        }
-      );
-
-      //On Track callback, create remote stream
-      const remoteStream = new MediaStream();
-      pc.ontrack = (event) => {
-        setRC(true);
-        event.streams[0].getTracks().forEach((track) => {
-          remoteStream.addTrack(track);
-          remote.current.srcObject = remoteStream;
-          remote.current.play();
-        });
-      };
-
-      //Ice Candidate call back
-      const callICE = [];
-      pc.onicecandidate = async (event) => {
-        event.candidate && console.log("so?");
-        event.candidate && callICE.push(event.candidate);
-        if (event.candidate) {
-          if (buf !== "false") {
-            await setDoc(
-              doc(db, "calls", proxy, "callCandidates", genID(10)),
-              event.candidate.toJSON()
-            );
+        );
+  
+        const iceChange = onSnapshot(
+          collection(db, "calls", proxy, "answerCandidates"),
+          (document) => {
+            document.docChanges().forEach((change) => {
+              if (change.type === "added") {
+                const candidate = new RTCIceCandidate(change.doc.data());
+                pc.addIceCandidate(candidate);
+              }
+            });
           }
-        }
-      };
-
-      //Create SDP
-      const offerDescription = await pc.createOffer();
-      await pc.setLocalDescription(offerDescription);
-
-      //Gather the SDP and type
-      const callSDP = {
-        sdp: offerDescription.sdp,
-        type: offerDescription.type,
-      };
-
-      //Send that to firebase
-      await setDoc(doc(db, "calls", proxy), {
-        proxy: proxy,
-        callSDP: callSDP,
-      });
-
-      //Register Window.beforeunload
-      window.onbeforeunload = async function () {
-        if (ui === 0) {
-          //Update Call so that the proxy is null
-          await updateDoc(doc(db, "calls", proxy), {
-            proxy: "ended",
+        );
+  
+        //On Track callback, create remote stream
+        const remoteStream = new MediaStream();
+        pc.ontrack = (event) => {
+          setRC(true);
+          event.streams[0].getTracks().forEach((track) => {
+            remoteStream.addTrack(track);
+            remote.current.srcObject = remoteStream;
+            remote.current.play();
           });
+        };
+  
+        //Ice Candidate call back
+        const callICE = [];
+        pc.onicecandidate = async (event) => {
+          event.candidate && console.log("so?");
+          event.candidate && callICE.push(event.candidate);
+          if (event.candidate) {
+            if (buf !== "false") {
+              await setDoc(
+                doc(db, "calls", proxy, "callCandidates", genID(10)),
+                event.candidate.toJSON()
+              );
+            }
+          }
+        };
+  
+        //Create SDP
+        const offerDescription = await pc.createOffer();
+        await pc.setLocalDescription(offerDescription);
+  
+        //Gather the SDP and type
+        const callSDP = {
+          sdp: offerDescription.sdp,
+          type: offerDescription.type,
+        };
+  
+        //Send that to firebase
+        await setDoc(doc(db, "calls", proxy), {
+          proxy: proxy,
+          callSDP: callSDP,
+        });
+  
+        //Register Window.beforeunload
+        window.onbeforeunload = async function () {
+          if (ui === 0) {
+            //Update Call so that the proxy is null
+            await updateDoc(doc(db, "calls", proxy), {
+              proxy: "ended",
+            });
+  
+            //Delete the document instances (or at least try to)
+            await deleteDoc(doc(db, "available-calls", proxy));
+            await deleteDoc(doc(db, "calls", proxy));
+          }
+        };
+      }
 
-          //Delete the document instances (or at least try to)
-          await deleteDoc(doc(db, "available-calls", proxy));
-          await deleteDoc(doc(db, "calls", proxy));
-        }
-      };
+      catch(err){
+        window.location.replace(`/callbacks/something-went-wrong?n=${err.name}`);
+      }
     };
 
     //First Check if we are signed in

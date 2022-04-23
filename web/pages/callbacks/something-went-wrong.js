@@ -26,7 +26,7 @@ export default function PostExpert() {
                 fontFamily: "var(--mainfont)",
                 textAlign: "center",
                 fontSize: "4vw",
-                fontWeight:"200"
+                fontWeight: "200",
               }}
             >
               Something went Wrong.
@@ -42,9 +42,19 @@ export default function PostExpert() {
               Error : {SP.get("n")}
             </p>
 
-            <a href="/home">
-                Back to Homepage
-            </a>
+            <br />
+            <br />
+            <div>
+              <p
+                style={{
+                  fontFamily: "var(--mainfont)",
+                  textAlign: "center",
+                  fontSize: "1vw",
+                }}
+              >
+                <a href="/home">Back to Home</a>
+              </p>
+            </div>
           </>
         )}
       </div>
