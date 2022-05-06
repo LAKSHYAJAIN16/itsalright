@@ -548,13 +548,11 @@ export default function ExpertChat({ messages, reciever }) {
                 <div
                   className="emojiPanelItem"
                   onClick={(e) => messageEmoji(e.target.innerText)}
-                  onClick={(e) => messageEmoji(e.target.innerText)}
                 >
                   😀
                 </div>
                 <div
                   className="emojiPanelItem"
-                  onClick={(e) => messageEmoji(e.target.innerText)}
                   onClick={(e) => messageEmoji(e.target.innerText)}
                 >
                   😃
@@ -562,13 +560,11 @@ export default function ExpertChat({ messages, reciever }) {
                 <div
                   className="emojiPanelItem"
                   onClick={(e) => messageEmoji(e.target.innerText)}
-                  onClick={(e) => messageEmoji(e.target.innerText)}
                 >
                   😄
                 </div>
                 <div
                   className="emojiPanelItem"
-                  onClick={(e) => messageEmoji(e.target.innerText)}
                   onClick={(e) => messageEmoji(e.target.innerText)}
                 >
                   😁
@@ -576,13 +572,11 @@ export default function ExpertChat({ messages, reciever }) {
                 <div
                   className="emojiPanelItem"
                   onClick={(e) => messageEmoji(e.target.innerText)}
-                  onClick={(e) => messageEmoji(e.target.innerText)}
                 >
                   😆
                 </div>
                 <div
                   className="emojiPanelItem"
-                  onClick={(e) => messageEmoji(e.target.innerText)}
                   onClick={(e) => messageEmoji(e.target.innerText)}
                 >
                   🤣
