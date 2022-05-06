@@ -43,9 +43,7 @@ export default function Home() {
         setDisplay4(true);
         setDisplay5(true);
       }
-    }
-
-    else {
+    } else {
       setDisplay2(true);
       setDisplay3(true);
       setDisplay4(true);
@@ -77,7 +75,8 @@ export default function Home() {
       <div className={styles.main}>
         <Navbar />
         <div className={styles.mainHeadBox}>
-          <p className={styles.head}>Sometimes it's ok to be not ok</p>
+          <br />
+          <h1 className={styles.head}>Sometimes it's ok to be not ok</h1>
           <p className={styles.subhead}>
             Life changes. Stuff happens. It's what us humans deal with everyday.
           </p>
@@ -106,11 +105,12 @@ export default function Home() {
             <p className={styles.cardHeading}>Never Alone</p>
             <p className={styles.cardDescription}>
               <span className={styles.itsalrightspan}>Itsalright</span> is
-              completely based on the community : over <b>1k</b> and growing.
-              With the Browse Feature, you can look at other people's problems
-              and help them find a solution. We also feature{" "}
-              <b>approved experts</b>, who can give expert advice according to
-              their experience.
+              completely based on the community : over{" "}
+              <span className={styles.bold}>1k</span> and growing. With the
+              Browse Feature, you can look at other people's problems and help
+              them find a solution. We also feature{" "}
+              <span className={styles.bold}>approved experts</span>, who can
+              give expert advice according to their experience.
               <br />
               <br />
               You are never alone on{" "}
@@ -182,7 +182,8 @@ export default function Home() {
                 Here, we have over <b>1900</b> certified doctors, motivational
                 speakers, teachers and experts for any problem you may have.
                 Everyday these experts donate countless hours to help the
-                community. You can consult these experts <b>free of cost</b> at{" "}
+                community. You can consult these experts{" "}
+                <span className={styles.bold}>free of cost</span> at{" "}
                 <span className={styles.itsalrightspan}>itsalright</span>.
                 <br />
                 <br />
@@ -290,7 +291,7 @@ export default function Home() {
 
               <div
                 className={styles.testimonial}
-                style={{ marginTop: "-20px" }}
+                style={{ marginTop: "-10px" }}
               >
                 <div className={styles.testimonialContent}>
                   "Coming into this website I was a bit skeptical, but after
@@ -335,7 +336,7 @@ export default function Home() {
             <div className={styles.testimonialRow}>
               <div
                 className={styles.testimonial}
-                style={{ marginTop: "-170px" }}
+                style={{ marginTop: "-100px" }}
               >
                 <div className={styles.testimonialContent}>
                   "This website was a gamechanger for me. I was under severe

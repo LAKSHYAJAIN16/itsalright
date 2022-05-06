@@ -121,6 +121,7 @@ export default function Footer() {
           }
 
           .column {
+            font-family: var(--mainfont);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -129,15 +130,22 @@ export default function Footer() {
           }
 
           .link {
+            font-family: var(--mainfont);
             cursor: pointer;
             color: #4d5354;
             text-decoration: none;
             font-size: 1.3em;
             font-family: var(--mainfont);
             margin-top: 10px;
+            transition : 500ms all ease;
+          }
+
+          .link:hover {
+            color : black;
           }
 
           .sub-footer {
+            font-family: var(--mainfont);
             display: flex;
             align-items: center;
           }
@@ -150,21 +158,26 @@ export default function Footer() {
           }
 
           .status {
+            font-family: var(--mainfont);
             margin-left: 200px;
             width: 200px;
             height: 50px;
             padding: 10px 10px 10px 10px;
+            padding-bottom : 0px !important;
             border-radius: 25px;
             border: 2px solid green;
             zoom: 0.9;
           }
 
           .donate {
+            font-family: var(--mainfont);
             margin-left: 200px;
           }
 
           h3 {
-            zoom: 0.8;
+            font-family: var(--mainfont);
+            zoom: 1.2;
+            font-weight : 500;
           }
 
           @media screen and (max-width : 910px) {

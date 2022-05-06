@@ -1,3 +1,7 @@
+.bold {
+  font-weight: 400;
+}
+
 .main {
   background-color: var(--secondary);
   background-image: var(--gradient);
@@ -101,16 +105,19 @@
 
 .testimonialPreHead {
   margin-top: 14px;
+  font-family: var(--mainfont);
   display: flex;
 }
 
 .testimonialName {
   padding-left: 10px;
+  font-family: var(--mainfont);
   font-size: 1.2em;
   font-weight: 600;
 }
 
 .testimonialSubName {
+  font-family: var(--mainfont);
   padding-left: 10px;
   font-style: italic;
 }
