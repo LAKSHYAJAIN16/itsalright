@@ -106,7 +106,7 @@ export default function Login() {
       <div className="main">
         <Navbar />
         <div className="center">
-          <h2 className="signup">Login</h2>
+          <h2 className="signup" style={{fontWeight:"300"}}>Login</h2>
           <hr />
           <form className="form" onSubmit={login}>
             <div className="field">
@@ -175,6 +175,7 @@ export default function Login() {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            font-family : var(--mainfont);
             width: 400px;
             background: white;
             border-radius: 10px;

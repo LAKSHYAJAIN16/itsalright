@@ -223,7 +223,7 @@ export default function Navbar() {
                   display: flex;
                   flex-direction: row;
                   align-items: center;
-                  margin-top: 2px;
+                  margin-top: 0px;
                 }
 
                 .logoText {

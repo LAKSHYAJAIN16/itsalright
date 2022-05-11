@@ -17,7 +17,27 @@ export default function CommentSection({ comments, user, postID }) {
     //Initial
     setRenderComments(false);
     setRealComments(comments);
-    setFilteredComments(comments);
+
+    //Sort the comments
+    let aux = [];
+    for (let i = 0; i < comments.length; i++) {
+      const comment = comments[i];
+      if (comment.isAnswer) {
+        aux.push(comment);
+      }
+    }
+
+    //Add two arrays
+    const fin = aux.concat(comments);
+
+    //Filter to remove duplicates
+    let finArray = fin.filter(function (item, pos) {
+      return fin.indexOf(item) == pos;
+    });
+
+    console.log(finArray);
+
+    setFilteredComments(finArray);
 
     //First Check if we are signed in
     const user = JSON.parse(localStorage.getItem("user"));
@@ -99,8 +119,23 @@ export default function CommentSection({ comments, user, postID }) {
     }
 
     if (intent === "top") {
-      const aux = temp_comments;
-      setFilteredComments(aux);
+      //Sort the comments
+      let aux = [];
+      for (let i = 0; i < temp_comments.length; i++) {
+        const comment = temp_comments[i];
+        if (comment.isAnswer) {
+          aux.push(comment);
+        }
+      }
+
+      //Add two arrays
+      const fin = aux.concat(temp_comments);
+
+      //Filter to remove duplicates
+      let finArray = fin.filter(function (item, pos) {
+        return fin.indexOf(item) == pos;
+      });
+      setFilteredComments(finArray);
     }
 
     if (intent === "newest") {
@@ -253,7 +288,10 @@ export default function CommentSection({ comments, user, postID }) {
           />
           <div className="buttons">
             <button className="cancelButton">Cancel</button>
-            <button className="submitButton" onClick={() => window.location.replace("/login")}>
+            <button
+              className="submitButton"
+              onClick={() => window.location.replace("/login")}
+            >
               Comment
             </button>
           </div>

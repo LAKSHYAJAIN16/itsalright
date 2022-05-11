@@ -20,7 +20,10 @@ export default function Report() {
           "If you want to report a user for any malicious or hateful activity, do it here"
         }
       />
-      <div className="content" style={{ textAlign: "center" }}>
+      <div
+        className="content"
+        style={{ textAlign: "center", fontFamily: "var(--mainfont" }}
+      >
         <h1>Report</h1>
         <p>
           If you want to report anything, write it here. This message will go

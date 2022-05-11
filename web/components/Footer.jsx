@@ -6,7 +6,7 @@ export default function Footer() {
       <hr />
       <footer className="main">
         <div className="column">
-          <h3>Features</h3>
+          <h3 className="h3">Features</h3>
           <a className="link" href="/share">
             Share
           </a>
@@ -22,7 +22,7 @@ export default function Footer() {
         </div>
 
         <div className="column" style={{ marginTop: "-40px" }}>
-          <h3>Contact Us</h3>
+          <h3 className="h3">Contact Us</h3>
           <a className="link" href="/report">
             Report User
           </a>
@@ -35,7 +35,7 @@ export default function Footer() {
         </div>
 
         <div className="column">
-          <h3>Company</h3>
+          <h3 className="h3">Company</h3>
           <a className="link" href="/about">
             About
           </a>
@@ -51,7 +51,7 @@ export default function Footer() {
         </div>
 
         <div className="column">
-          <h3>Socials</h3>
+          <h3 className="h3">Socials</h3>
           <a
             className="link"
             href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
@@ -174,9 +174,9 @@ export default function Footer() {
             margin-left: 200px;
           }
 
-          h3 {
+          .h3 {
             font-family: var(--mainfont);
-            zoom: 1.2;
+            zoom: 1;
             font-weight : 500;
           }
 

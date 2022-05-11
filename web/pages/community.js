@@ -8,7 +8,10 @@ export default function Community() {
     <>
       <Navbar />
       <Meta title={"Community"} desc={"A Page dedicated to our community"} />
-      <div className="content" style={{ textAlign: "center" }}>
+      <div
+        className="content"
+        style={{ textAlign: "center", fontFamily: "var(--mainfont)" }}
+      >
         <h1>Community</h1>
         <br />
         <p>

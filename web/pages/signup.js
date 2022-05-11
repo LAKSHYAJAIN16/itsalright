@@ -98,7 +98,7 @@ export default function signup() {
       <div className="main">
         <Navbar />
         <div className="center">
-          <h2 className="signup">Signup</h2>
+          <h2 className="signup" style={{fontWeight:"300"}}>Signup</h2>
           <p className="expert-signup">
             If you are an expert (a doctor, motivational speaker, etc.)
             <br />
@@ -159,7 +159,7 @@ export default function signup() {
               }}
             >
               By Clicking Signup, you adhere to our{" "}
-              <a href="/terms">terms and conditions</a>
+              <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">terms and conditions</a>
             </p>
             <button className="standardButton signupButton" type="submit">
               Signup
@@ -194,6 +194,7 @@ export default function signup() {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            font-family : var(--mainfont);
             width: 400px;
             background: white;
             border-radius: 10px;

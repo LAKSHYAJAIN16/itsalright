@@ -6,16 +6,22 @@ import Navbar from "../components/Navbar";
 
 export default function Helpdesk() {
   const send = async () => {
-      const text = document.getElementById("fi").value;
-      await axios.get(`/api/email/help-desk?m=${text}`);
-      window.location.replace("/");
+    const text = document.getElementById("fi").value;
+    await axios.get(`/api/email/help-desk?m=${text}`);
+    window.location.replace("/");
   };
 
   return (
     <>
       <Navbar />
-      <Meta title={"Contact our Team"} desc={"Contact our Team for any bugs or glitches"}/>
-      <div className="content" style={{ textAlign: "center" }}>
+      <Meta
+        title={"Contact our Team"}
+        desc={"Contact our Team for any bugs or glitches"}
+      />
+      <div
+        className="content"
+        style={{ textAlign: "center", fontFamily: "var(--mainfont)" }}
+      >
         <h1>Helpdesk</h1>
         <p>If you want to contact our team, type your Message here</p>
         <br />

@@ -162,6 +162,7 @@ export default function ExpertSignup() {
       <style jsx>
         {`
           .center {
+            font-family : var(--mainfont);
             position: absolute;
             top: 50%;
             left: 50%;

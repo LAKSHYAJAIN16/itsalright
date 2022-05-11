@@ -8,7 +8,10 @@ export default function masthead() {
     <>
       <Meta title={"Masthead"} desc={"Masthead"} />
       <Navbar />
-      <div className="content" style={{ textAlign: "center" }}>
+      <div
+        className="content"
+        style={{ textAlign: "center", fontFamily: "var(--mainfont)" }}
+      >
         <h1>Masthead</h1>
         <br />
         <br />

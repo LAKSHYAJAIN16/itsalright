@@ -968,6 +968,7 @@ export default function UserSettings() {
             display: flex;
             justify-content: space-evenly;
             flex-direction: row;
+            font-family : var(--mainfont);
           }
 
           .row {

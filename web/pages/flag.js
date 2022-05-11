@@ -38,7 +38,7 @@ export default function Flag() {
       {renderB ? (
         <>
           <Navbar />
-          <div className="content" style={{ textAlign: "center" }}>
+          <div className="content" style={{ textAlign: "center", fontFamily:"var(--mainfont)" }}>
             <h1>Flag</h1>
             <p>
               If you want to Flag or report a comment, you can do so here. We

@@ -118,7 +118,7 @@ export default function ForgotPassword() {
       <Navbar />
       <div className="main">
         <div className="center">
-          <h2 className="signup" style={{ fontSize: "2.5em" }}>
+          <h2 className="signup" style={{ fontSize: "2.5em", fontWeight:"300" }}>
             Password Reset
           </h2>
           <hr />
@@ -133,7 +133,7 @@ export default function ForgotPassword() {
                   )
                 }
               >
-                <p>Enter the email associated to your account</p>
+                <p style={{fontSize:"0.9em"}}>Enter the email associated to your account</p>
 
                 <div
                   className="field"
@@ -275,12 +275,14 @@ export default function ForgotPassword() {
             background: white;
             border-radius: 10px;
             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            font-family : var(--mainfont);
           }
 
           .signup {
             text-align: center;
             font-size: 55px;
             padding: 10px 0;
+            
           }
 
           .expert-signup {
