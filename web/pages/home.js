@@ -88,8 +88,8 @@ export default function Home() {
         `}
       </Script>
 
+      <Navbar />
       <div className={styles.main}>
-        <Navbar />
         <div className={styles.mainHeadBox}>
           <br />
           <h1 className={styles.head}>Sometimes it's ok to be not ok</h1>
@@ -121,11 +121,9 @@ export default function Home() {
             <p className={styles.cardHeading}>Never Alone</p>
             <p className={styles.cardDescription}>
               <span className={styles.itsalrightspan}>Itsalright</span> is
-              completely based on the community : over{" "}
-              <span className={styles.bold}>1k</span> and growing. With the
+              completely based on the community : over 1k and growing. With the
               Browse Feature, you can look at other people's problems and help
-              them find a solution. We also feature{" "}
-              <span className={styles.bold}>approved experts</span>, who can
+              them find a solution. We also feature approved experts, who can
               give expert advice according to their experience.
               <br />
               <br />
@@ -195,11 +193,10 @@ export default function Home() {
             <div>
               <p className={styles.cardHeading}>Expertise & Wisdom</p>
               <p className={styles.cardDescription}>
-                Here, we have over <b>1900</b> certified doctors, motivational
+                Here, we have over 1900 certified doctors, motivational
                 speakers, teachers and experts for any problem you may have.
                 Everyday these experts donate countless hours to help the
-                community. You can consult these experts{" "}
-                <span className={styles.bold}>free of cost</span> at{" "}
+                community. You can consult these experts free of cost at{" "}
                 <span className={styles.itsalrightspan}>itsalright</span>.
                 <br />
                 <br />
