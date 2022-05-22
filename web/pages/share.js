@@ -20,6 +20,7 @@ export default function share() {
 
   //UI States
   const [ui, setUI] = useState(0);
+  const [isFirst, setIsFirst] = useState(true);
   const titleInput = useRef();
 
   useEffect(() => {
@@ -28,7 +29,16 @@ export default function share() {
     if (!user) {
       window.location.replace("/login");
     } else if (user) {
-      //HOLA!
+      //Check for Tutorial
+      const isFirst =
+        localStorage.getItem("share-tut") || "true" ? true : false;
+      setIsFirst(isFirst);
+
+      if (isFirst === true) {
+        //Set ls to false
+        // localStorage.setItem("share-tut", "false");
+      }
+      console.log(isFirst);
     }
   }, []);
 
@@ -38,7 +48,7 @@ export default function share() {
   };
 
   const nextCallbackTitle = () => {
-    if(titleInput.current.value === ""){
+    if (titleInput.current.value === "") {
       alert("Blank Titles are Not Allowed");
       return;
     }
@@ -64,7 +74,7 @@ export default function share() {
     const res = await axios.post("/api/createPost", data);
 
     //Replace the url
-    window.location.replace(`/post/${res.data.docId}`);
+    window.location.replace(`/post/v2?id=${res.data.docId}`);
     console.log(res);
   };
 
@@ -83,7 +93,7 @@ export default function share() {
               <p className="stepBuf">
                 <b>Step 1 : </b>
                 Write to your heart's content, share whatever you've got on your
-                mind, as detailed as you want
+                mind, as detailed as you want. Our Experts will respond to you.
               </p>
               <br />
               <br />

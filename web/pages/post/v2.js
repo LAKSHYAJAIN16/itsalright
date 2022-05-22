@@ -8,42 +8,71 @@ import CommentSection from "../../components/CommentSection";
 import TextViewer from "../../components/TextViewer";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import Procrastinator from "../../components/Procrastinator";
 
-export default function SinglePost(context) {
+export default function SinglePost() {
+  const [context, setContext] = useState();
   const [hearts, setHearts] = useState([]);
   const [heartState, setHeartState] = useState(false);
   const [user, setUser] = useState({});
   const [signed, setSigned] = useState(false);
 
   useEffect(() => {
-    setHearts(context.props.hearts);
+    const run = async () => {
+      //Get the Query id
+      const id = new URL(window.location.href).searchParams.get("id");
 
-    //First Check if we are signed in
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (!user) {
-      setHeartState(false);
-      setSigned(false);
-    } else if (user) {
-      setUser(JSON.parse(localStorage.getItem("user") || ""));
-      setSigned(true);
-
-      //Check if we've already hearted the post
-      const alreadyHearted = false;
-      const userID = JSON.parse(localStorage.getItem("user")).id;
-      for (let i = 0; i < context.props.hearts.length; i++) {
-        const heart = context.props.hearts[i];
-        if (heart.userID === userID) {
-          alreadyHearted = true;
-          break;
+      try {
+        //Call Backend
+        const res = await axios.get(
+          "http://itsalright.in/api/specifics/" + id
+        );
+        const data = res.data.data;
+        if (data === undefined) {
+          window.location.replace("/home");
         }
-      }
 
-      setHeartState(alreadyHearted);
-    }
+        const returnPASTA = {
+          props: data,
+        };
+
+        console.log(returnPASTA);
+
+        setContext(returnPASTA);
+        setHearts(data.hearts);
+
+        //First Check if we are signed in
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (!user) {
+          setHeartState(false);
+          setSigned(false);
+        } else if (user) {
+          setUser(JSON.parse(localStorage.getItem("user") || ""));
+          setSigned(true);
+
+          //Check if we've already hearted the post
+          const alreadyHearted = false;
+          const userID = JSON.parse(localStorage.getItem("user")).id;
+          for (let i = 0; i < data.hearts.length; i++) {
+            const heart = data.hearts[i];
+            if (heart.userID === userID) {
+              alreadyHearted = true;
+              break;
+            }
+          }
+
+          setHeartState(alreadyHearted);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    run();
   }, []);
 
   const heart = async () => {
-    if(signed === false){
+    if (signed === false) {
       alert("Sign In To Heart Post");
       return;
     }
@@ -110,9 +139,15 @@ export default function SinglePost(context) {
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossOrigin="anonymous"
         ></link>
-        <title>
-          {context.props.title} by {context.props.user.name} : Itsalright
-        </title>
+        {context !== undefined ? (
+          <>
+            <title>
+              {context.props.title} by {context.props.user.name} : Itsalright
+            </title>
+          </>
+        ) : (
+          <title>Loading Wait..</title>
+        )}
       </Head>
 
       {context !== undefined && (
@@ -285,31 +320,12 @@ export default function SinglePost(context) {
           </style>
         </div>
       )}
+
+      {context === undefined && (
+        <>
+          <Procrastinator />
+        </>
+      )}
     </>
   );
-}
-
-export async function getServerSideProps(context) {
-  //Get the Query id
-  const id = context.query.id;
-
-  try {
-    //Call Backend
-    const res = await axios.get("http://www.itsalright.in/api/specifics/" + id);
-    const data = res.data.data;
-    if (data === undefined) {
-      return {
-        notFound: true,
-      };
-    }
-    return {
-      props: {
-        props: data,
-      },
-    };
-  } catch (err) {
-    return {
-      notFound: true,
-    };
-  }
 }
