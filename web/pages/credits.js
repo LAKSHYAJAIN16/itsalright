@@ -24,13 +24,10 @@ export default function Credits() {
           <b>Graphics :</b> Lakshya Jain
         </p>
         <p>
-          <b>Marketing :</b> Lakshya Jain
+          <b>Marketing :</b> Lakshya Jain, Lakshya Jain, Aaradhya Bharadwaj
         </p>
         <p>
           <b>Programming :</b> Lakshya Jain
-        </p>
-        <p>
-          <b>Literally everything lol :</b> Lakshya Jain
         </p>
       </div>
     </>
