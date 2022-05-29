@@ -217,6 +217,7 @@ export default function Navbar() {
                 </>
               )}
             </div>
+            
             <style jsx>
               {`
                 .main {

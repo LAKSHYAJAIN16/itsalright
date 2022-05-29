@@ -57,7 +57,7 @@
 .cardHeading {
   font-size: 3em;
   font-weight: 300;
-  opacity: 0;
+  opacity: 1;
   animation: cardHeadingIn 1s 0.3s ease forwards;
 }
 
@@ -74,7 +74,7 @@
   margin-left: 100px;
   width: 400px;
   height: 300px;
-  opacity: 0;
+  opacity: 1;
   animation: cardHeadingIn 1s 1.5s ease forwards;
 }
 
@@ -88,7 +88,7 @@
 .testimonialRow {
   display: flex;
   justify-content: center;
-  margin-left: -70px;
+  margin-left: -100px;
 }
 
 .testimonial {
@@ -148,15 +148,6 @@
   }
   50% {
     border-color: lightblue;
-  }
-}
-
-@keyframes cardHeadingIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }
 

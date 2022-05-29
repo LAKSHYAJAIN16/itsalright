@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
 import Procrastinator from "../components/Procrastinator";
-import DangerModal from "../components/DangerModal";
 import Navbar from "../components/Navbar";
 import Meta from "../components/Meta";
 
@@ -27,11 +26,6 @@ export default function UserSettings() {
   const [rUID, setRUID] = useState(false);
   const [rAPIKey, setRAPIKey] = useState(false);
   const [rOAuthKey, setROAuthKey] = useState(false);
-
-  //Modal States
-  const [isSignOut, setIsSignOut] = useState(false);
-  const [isDel, setIsDel] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     setD(JSON.parse(localStorage.getItem("user") || ""));
@@ -189,44 +183,10 @@ export default function UserSettings() {
     setIsSignOut(false);
   };
 
-  //Buffer FNS for modal
-  const modalSignOut = () => {
-    setIsSignOut(true);
-    setShowModal(true);
-  };
-
-  const modalDel = () => {
-    setIsDel(true);
-    setShowModal(true);
-  };
-
   return (
     <>
       <Navbar />
       <Meta title={"User Settings"} desc={"Change Settings"} />
-      {showModal ? (
-        <>
-          {isSignOut && (
-            <DangerModal
-              text={"you will be signed out from this device"}
-              closeFN={closeModalFNForCallback}
-              nextFN={signout}
-            />
-          )}
-
-          {isDel && (
-            <DangerModal
-              text={
-                "all of your posts, comments, and user data will be deleted forever"
-              }
-              closeFN={closeModalFNForCallback}
-              nextFN={delAccount}
-            />
-          )}
-        </>
-      ) : (
-        <></>
-      )}
       <div className="content">
         {pass === false ? (
           <>
@@ -930,7 +890,7 @@ export default function UserSettings() {
                         marginLeft: "100px",
                         marginTop: "10px",
                       }}
-                      onClick={() => modalDel()}
+                      onClick={() => delAccount()}
                     >
                       Delete Account
                     </button>
@@ -951,7 +911,7 @@ export default function UserSettings() {
                         marginLeft: "100px",
                         marginTop: "10px",
                       }}
-                      onClick={() => modalSignOut()}
+                      onClick={() => signout()}
                     >
                       Signout
                     </button>
@@ -992,6 +952,7 @@ export default function UserSettings() {
             font-family: var(--mainfont);
             font-weight: 600;
             font-size: 1.7em;
+            margin-bottom : 10px;
           }
 
           .sideItemN {
