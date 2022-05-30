@@ -25,7 +25,7 @@ export default function SinglePost() {
       try {
         //Call Backend
         const res = await axios.get(
-          "https://itsalright.in/api/specifics/" + id
+          "https://www.itsalright.in/api/specifics/" + id
         );
         const data = res.data.data;
         if (data === undefined) {
