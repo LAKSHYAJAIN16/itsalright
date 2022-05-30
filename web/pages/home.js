@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import Procrastinator from "../components/Procrastinator";
+
 export default function Home() {
   useEffect(() => {
     window.location.replace("/")
@@ -7,7 +9,7 @@ export default function Home() {
 
   return (
     <>
-    <p>WAIT CLOWN</p>
+    <Procrastinator />
     </>
   )
 }
