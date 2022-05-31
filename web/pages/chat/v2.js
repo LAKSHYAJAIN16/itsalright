@@ -1,18 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import axios from "axios";
 
 import Meta from "../../components/Meta";
 import Chat from "../../components/Chat";
 import Navbar from "../../components/Navbar";
+import Procrastinator from "../../components/Procrastinator";
 
-export default function ChatRoom(context) {
+export default function ChatRoomVersionTwo() {
+  const [context, setContext] = useState();
+  const [renderB, setRenderB] = useState(false);
+
   useEffect(() => {
-    //First Check if we are signed in
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (!user) {
-      window.location.replace("/login");
-    }
+    const doa = async () => {
+      //First Check if we are signed in
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user) {
+        window.location.replace("/login");
+      }
+
+      //Get From API
+      const id = new URL(window.location.href).searchParams.get("v");
+      const res = await axios.get(`${window.location.origin}/api/user/${id}`);
+      const data = res.data.data;
+      if (data === undefined || res.status !== 200) {
+        window.location.replace(
+          "/callbacks/something-went-wrong?n=" + "Expert does not Exist"
+        );
+      }
+
+      //Set State
+      const contextBuf = {
+        data: data,
+        userID: id,
+      };
+
+      setContext(contextBuf);
+      setRenderB(true);
+    };
+
+    doa();
   }, []);
 
   return (
@@ -23,8 +50,16 @@ export default function ChatRoom(context) {
           href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
           rel="stylesheet"
         ></link>
-        <title>{`Chat with ${context.data.name}`}</title>
-        <meta name="description">{`Chat with ${context.data.name} on Itsalright`}</meta>
+        {renderB === true ? (
+          <>
+            <title>{`Chat with ${context.data.name}`}</title>
+            <meta name="description">{`Chat with ${context.data.name} on Itsalright`}</meta>
+          </>
+        ) : (
+          <>
+            <title>Chat with Experts</title>
+          </>
+        )}
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
@@ -32,33 +67,42 @@ export default function ChatRoom(context) {
 
       <div className="bg" style={{ minHeight: "100vh" }}>
         <Navbar />
-        <div className="main">
-          <div className="profile">
-            <img
-              src={context.data.profilePic}
-              className="profilePic"
-              alt="profile_pic"
-              aria-label="profile_pic"
-            ></img>
-            <p className="name">Chat with {context.data.name}</p>
-            <a href="/contact">
-              <button className="standardButton exit">Exit</button>
-            </a>
-            <br />
-            <p className="sub">
-              {context.data.name} will recieve a notification as soon as you
-              send a message.
-            </p>
-            <p className="sub">
-              We make sure each problem gets resolved at{" "}
-              <span style={{ fontFamily: "var(--logofont)" }}>itsalright</span>.
-            </p>
-          </div>
+        {renderB ? (
+          <>
+            <div className="main">
+              <div className="profile">
+                <img
+                  src={context.data.profilePic}
+                  className="profilePic"
+                  alt="profile_pic"
+                  aria-label="profile_pic"
+                ></img>
+                <p className="name">Chat with {context.data.name}</p>
+                <a href="/contact">
+                  <button className="standardButton exit">Exit</button>
+                </a>
+                <br />
+                <p className="sub">
+                  {context.data.name} will recieve a notification as soon as you
+                  send a message.
+                </p>
+                <p className="sub">
+                  We make sure each problem gets resolved at{" "}
+                  <span style={{ fontFamily: "var(--logofont)" }}>
+                    itsalright
+                  </span>
+                  .
+                </p>
+              </div>
 
-          <div className="chat">
-            <Chat reciever={context.data} />
-          </div>
-        </div>
+              <div className="chat">
+                <Chat reciever={context.data} />
+              </div>
+            </div>
+          </>
+        ) : (
+          <Procrastinator />
+        )}
       </div>
 
       <style jsx>
@@ -207,30 +251,4 @@ export default function ChatRoom(context) {
       </style>
     </>
   );
-}
-
-export async function getServerSideProps(context) {
-  //Get the Query id
-  const id = context.query.id;
-
-  try {
-    //Call Backend
-    const res = await axios.get("http://itsalright.in/api/user/" + id);
-    const data = res.data.data;
-    if (data === undefined) {
-      return {
-        notFound: true,
-      };
-    }
-    return {
-      props: {
-        userID: id,
-        data: data,
-      },
-    };
-  } catch (err) {
-    return {
-      notFound: true,
-    };
-  }
 }

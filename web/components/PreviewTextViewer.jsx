@@ -68,13 +68,13 @@ export default function PreviewTextViewer({ post }) {
   );
   return (
     <div style={{ cursor: "pointer" }}>
-      <Link href={`/post/v2?id=${post.id}`}>
+      <a href={`/post/v2?id=${post.id}`}>
         <div className={styles.card}>
           <h1 className={styles.title}>{post.title}</h1>
           <br />
           <PreviewText />
         </div>
-      </Link>
+      </a>
     </div>
   );
 }

@@ -25,11 +25,13 @@ export default function SinglePost() {
       try {
         //Call Backend
         const res = await axios.get(
-          "https://www.itsalright.in/api/specifics/" + id
+          `${window.location.origin}/api/specifics/${id}`
         );
         const data = res.data.data;
-        if (data === undefined) {
-          window.location.replace("/home");
+        if (data === undefined || res.status !== 200) {
+          window.location.replace(
+            "/callbacks/something-went-wrong?n=" + "Post Does Not Exist"
+          );
         }
 
         const returnPASTA = {

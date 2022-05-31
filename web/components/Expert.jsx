@@ -1,16 +1,15 @@
 import React from "react";
-import Link from "next/link";
 
 export default function Expert({ user }) {
   return (
     <div style={{ cursor: "pointer" }}>
-      <Link href={`/chat/${user.id}`}>
+      <a href={`/chat/v2?v=${user.id}`}>
         <div className="card">
           <img src={user.profilePic} className="profilePic"></img>
           <p className="name">{user.name}</p>
           <p className="desc">{user.expertData.bio}</p>
         </div>
-      </Link>
+      </a>
       <style jsx>
         {`
           .card {

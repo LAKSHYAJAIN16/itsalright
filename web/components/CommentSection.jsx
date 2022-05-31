@@ -82,7 +82,9 @@ export default function CommentSection({ comments, user, postID }) {
       id: postID,
     });
     console.log(res);
-    setRenderComments(true);
+
+    //Make it so that it comes on top
+    sortComments("newest");
 
     //Notifications
     const res2 = await axios.get(
