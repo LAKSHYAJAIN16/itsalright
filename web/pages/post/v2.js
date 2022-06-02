@@ -151,11 +151,10 @@ export default function SinglePost() {
           <title>Loading Wait..</title>
         )}
       </Head>
+      <Navbar />
 
       {context !== undefined && (
-        <div className="bg" style={{ minHeight: "100vh" }}>
-          <Navbar />
-
+        <div>
           <span className="title">
             {context.props.title}
             {context.props.answered ? (

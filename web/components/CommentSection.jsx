@@ -547,59 +547,61 @@ export default function CommentSection({ comments, user, postID }) {
           </div>
 
           {/* Options Dropdown */}
-          <Dropdown>
-            <Dropdown.Toggle variant="white" className="remove-after">
-              <i className="bx bx-dots-vertical-rounded"></i>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {userID === comment.comment.userID ? (
-                <>
-                  <Dropdown.Item
-                    style={{ display: "flex", alignItems: "center" }}
-                    onClick={() => delComment()}
-                  >
-                    <i className="bx bxs-x-circle dropdownIcon"></i>Delete
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    style={{ display: "flex", alignItems: "center" }}
-                    onClick={() => setEditing(true)}
-                  >
-                    <i className="bx bxs-edit-alt dropdownIcon"></i>Edit
-                  </Dropdown.Item>
-                </>
-              ) : (
-                <>
-                  <a
-                    href={`/flag?v=${userID}&c=${comment.comment.id}`}
-                    style={{ color: "black" }}
-                    onClick={() =>
-                      window.location.replace(
-                        `/flag?v=${userID}&c=${comment.comment.id}&redirect_url=${window.location.href}`
-                      )
-                    }
-                  >
+          <div className="dropDownBit">
+            <Dropdown>
+              <Dropdown.Toggle variant="white" className="remove-after">
+                <i className="bx bx-dots-vertical-rounded"></i>
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {userID === comment.comment.userID ? (
+                  <>
                     <Dropdown.Item
                       style={{ display: "flex", alignItems: "center" }}
+                      onClick={() => delComment()}
                     >
-                      <i className="bx bxs-flag-alt dropdownIcon"></i>
-                      Flag
+                      <i className="bx bxs-x-circle dropdownIcon"></i>Delete
                     </Dropdown.Item>
-                  </a>
-                </>
-              )}
-              {userID === user.id && (
-                <>
-                  <Dropdown.Item
-                    style={{ display: "flex", alignItems: "center" }}
-                    onClick={() => markAsAnswer()}
-                  >
-                    <i className="bx bx-check-double dropdownIcon"></i>Mark as
-                    Answer
-                  </Dropdown.Item>
-                </>
-              )}
-            </Dropdown.Menu>
-          </Dropdown>
+                    <Dropdown.Item
+                      style={{ display: "flex", alignItems: "center" }}
+                      onClick={() => setEditing(true)}
+                    >
+                      <i className="bx bxs-edit-alt dropdownIcon"></i>Edit
+                    </Dropdown.Item>
+                  </>
+                ) : (
+                  <>
+                    <a
+                      href={`/flag?v=${userID}&c=${comment.comment.id}`}
+                      style={{ color: "black" }}
+                      onClick={() =>
+                        window.location.replace(
+                          `/flag?v=${userID}&c=${comment.comment.id}&redirect_url=${window.location.href}`
+                        )
+                      }
+                    >
+                      <Dropdown.Item
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                        <i className="bx bxs-flag-alt dropdownIcon"></i>
+                        Flag
+                      </Dropdown.Item>
+                    </a>
+                  </>
+                )}
+                {userID === user.id && (
+                  <>
+                    <Dropdown.Item
+                      style={{ display: "flex", alignItems: "center" }}
+                      onClick={() => markAsAnswer()}
+                    >
+                      <i className="bx bx-check-double dropdownIcon"></i>Mark as
+                      Answer
+                    </Dropdown.Item>
+                  </>
+                )}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
 
           <style jsx>
             {`
@@ -720,6 +722,81 @@ export default function CommentSection({ comments, user, postID }) {
                 -o-transition: all 0.4s ease-in-out;
                 -webkit-transition: all 0.4s ease-in-out;
                 transition: all 0.4s ease-in-out;
+              }
+
+              .dropDownBit {
+                /* Nothing IDIOT */
+              }
+
+              @media screen and (max-width : 873px){
+                .answered {
+                  width : 700px;
+                }
+              }
+
+              @media screen and (max-width : 769px){
+                .main {
+                  margin-left : 20px;
+                }
+              }
+
+              @media screen and (max-width : 741px){
+                .main {
+                  margin-left : 10px;
+                  width : 700px;
+                }
+              }
+
+              @media screen and (max-width : 729px){
+                .answered {
+                  width : 670px;
+                }
+
+                .text {
+                  width : 500px;
+                  white-space:normal;
+                }
+              }
+
+              @media screen and (max-width : 704px){
+                .answered {
+                  border : none;  
+                }
+              }
+
+              @media screen and (max-width : 680px){
+                .text {
+                  width : 500px;
+                  white-space:normal;
+                }
+              }
+
+              @media screen and (max-width : 603px){
+                .text {
+                  width : 400px;
+                  white-space:normal;
+                }
+              }
+
+              @media screen and (max-width : 508px){
+                .text {
+                  width : 300px;
+                  white-space:normal;
+                }
+              }
+
+              @media screen and (max-width : 404px){
+                .text {
+                  width : 200px;
+                  white-space:normal;
+                }
+              }
+
+              @media screen and (max-width : 312px){
+                .text {
+                  width : 150px;
+                  white-space:normal;
+                }
               }
             `}
           </style>
