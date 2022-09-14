@@ -23,5 +23,6 @@ export default async function handler(req, res) {
     await setDoc(doc(db, "pickup-lines", data.id), data);
     res.send("done method 1");
   }
-  res.send("hullo!");
+
+  
 }
