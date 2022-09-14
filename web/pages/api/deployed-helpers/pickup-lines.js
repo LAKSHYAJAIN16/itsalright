@@ -1,8 +1,15 @@
 import { updateDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import NextCors from "nextjs-cors";
 
 import { db } from "../../../lib/firebase";
 
 export default async function handler(req, res) {
+  await NextCors(req, res, {
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200,
+  });
+
   const data = {
     line: req.body.line,
     id: req.body.id,
@@ -23,6 +30,4 @@ export default async function handler(req, res) {
     await setDoc(doc(db, "pickup-lines", data.id), data);
     res.send("done method 1");
   }
-
-  
 }
