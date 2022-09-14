@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import Head from "next/head";
+import dynamic from 'next/dynamic'
 import Script from "next/script";
 
 import Meta from "../components/Meta";
