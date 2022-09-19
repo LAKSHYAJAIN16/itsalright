@@ -45,7 +45,10 @@
             curIndex = random_lines_index;
             curLine = l_lines[random_lines_index];
             displayLine(l_lines[random_lines_index]);
-            displayCategory(random_category["categorical-intent"], random_category["intent"]);
+            displayCategory(
+              random_category["categorical-intent"],
+              random_category["intent"]
+            );
           });
       };
 
@@ -205,7 +208,7 @@
       <input type="range" min="1" max="100" class="slider" id="corniness" />
       <br />
 
-      <p>"Out there"</p>
+      <p>Suggestive</p>
       <input type="range" min="1" max="100" class="slider" id="out-there" />
       <br />
 
