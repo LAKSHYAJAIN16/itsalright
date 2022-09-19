@@ -24,18 +24,28 @@
       // Init Function
       const init = () => {
         fetch(
-          "https://raw.githubusercontent.com/LAKSHYAJAIN16/smoothtalker/main/data/final_lines.json"
+          "https://raw.githubusercontent.com/LAKSHYAJAIN16/smoothtalker/main/scraper/final_lines.json"
         )
           .then((response) => response.json())
           .then((data) => {
             lines = data;
 
-            // Display Random Line
-            const rn = Math.floor(Math.random() * data.length);
-            const randomLine = data[rn];
-            curIndex = rn;
-            curLine = randomLine;
-            displayLine(randomLine);
+            // Choose Random Category
+            const random_category_index = Math.floor(
+              Math.random() * data.length
+            );
+            const random_category = data[random_category_index];
+            console.log(random_category);
+
+            // Get Random Lines
+            const l_lines = random_category["lines"];
+            const random_lines_index = Math.floor(
+              Math.random() * random_category.count
+            );
+            curIndex = random_lines_index;
+            curLine = l_lines[random_lines_index];
+            displayLine(l_lines[random_lines_index]);
+            displayCategory(random_category["categorical-intent"], random_category["intent"]);
           });
       };
 
@@ -46,18 +56,32 @@
         text.innerText = line;
       };
 
+      // Display Category
+      const displayCategory = (broad, specific) => {
+        // Variables
+        const text = document.getElementById("cat");
+        text.innerText = `Theme : ${broad} | ${specific}`;
+      };
+
       // Next Callback
       const next = async () => {
         // Get curLine and curIndex before we change them
         const prevIndex = curIndex;
         const prevLine = curLine;
 
-        //Display Random Line
-        const rn = Math.floor(Math.random() * lines.length);
-        const randomLine = lines[rn];
-        curIndex = rn;
-        curLine = randomLine;
-        displayLine(randomLine);
+        // Choose Random Category
+        const random_category_index = Math.floor(Math.random() * data.length);
+        const random_category = data[random_category_index];
+        console.log(random_category);
+
+        // Get Random Lines
+        const random_lines_index = Math.floor(
+          Math.random() * random_category.lines.length
+        );
+        const random_line = random_category.lines[random_category_index];
+        curIndex = random_lines_index;
+        curLine = random_line;
+        displayLine(random_line);
 
         // Get Input Values
         const corniness = document.getElementById("corniness");
@@ -98,6 +122,14 @@
       /* Basic Text Styles */
       .text {
         text-align: center;
+        margin-bottom: 0px;
+      }
+
+      .description {
+        text-align: center;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-weight: 200;
       }
 
       .slidecontainer {
@@ -166,6 +198,7 @@
       when the jock will look to the nerd for dating advice. ~Lakshya Jain
     </p>
     <h2 id="text" class="text"></h2>
+    <p class="description" id="cat">pasta</p>
 
     <div class="slidecontainer">
       <p>Corniness</p>
