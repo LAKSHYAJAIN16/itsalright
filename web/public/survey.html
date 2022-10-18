@@ -21,6 +21,18 @@
       let curLine = "";
       let curIndex = 0;
 
+      function makeid(length) {
+        var result = "";
+        var characters =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+          result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+          );
+        }
+        return result;
+      }
       // Init Function
       const init = () => {
         fetch(
@@ -68,23 +80,28 @@
 
       // Next Callback
       const next = async () => {
+        console.log("haha");
         // Get curLine and curIndex before we change them
         const prevIndex = curIndex;
         const prevLine = curLine;
 
         // Choose Random Category
-        const random_category_index = Math.floor(Math.random() * data.length);
-        const random_category = data[random_category_index];
+        const random_category_index = Math.floor(Math.random() * lines.length);
+        const random_category = lines[random_category_index];
         console.log(random_category);
 
         // Get Random Lines
+        const l_lines = random_category["lines"];
         const random_lines_index = Math.floor(
-          Math.random() * random_category.lines.length
+          Math.random() * random_category.count
         );
-        const random_line = random_category.lines[random_category_index];
         curIndex = random_lines_index;
-        curLine = random_line;
-        displayLine(random_line);
+        curLine = l_lines[random_lines_index];
+        displayLine(l_lines[random_lines_index]);
+        displayCategory(
+          random_category["categorical-intent"],
+          random_category["intent"]
+        );
 
         // Get Input Values
         const corniness = document.getElementById("corniness");
@@ -103,7 +120,7 @@
         // Assemble final payload
         const payload = {
           line: prevLine,
-          id: `${prevIndex}`,
+          id: `${prevIndex}:${makeid(12)}`,
           scores: [values],
         };
         console.log(payload);
@@ -126,6 +143,12 @@
       .text {
         text-align: center;
         margin-bottom: 0px;
+      }
+
+      .a {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        text-align: center;
       }
 
       .description {
@@ -199,6 +222,11 @@
       With this data, I will make sure that <b>each nerd will be a player</b>. I
       want to devise the <b>scientific way to get girls</b>. A day will come,
       when the jock will look to the nerd for dating advice. ~Lakshya Jain
+
+      <br />
+      <a href="/home" class="a"
+        >if you want to actually visit the website lol</a
+      >
     </p>
     <h2 id="text" class="text"></h2>
     <p class="description" id="cat">pasta</p>
